@@ -6,6 +6,7 @@ public class GodEvent : MonoBehaviour {
 
 
 	// Use this for initialization
+	public delegate void BuildFarm();
 	public static event BuildFarm farmEvent;
 
 
@@ -14,8 +15,11 @@ public class GodEvent : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (  )
-			farmEvent();
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			if (farmEvent != null)			
+				farmEvent();
+		}
 	}
 }
-
+ 

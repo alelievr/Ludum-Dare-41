@@ -1,11 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/ThridParty/Cinemachine/Base/Editor/Resources/Cinemachine_header.tif.meta
 guid: 4bfec0a605d1841669b436d1dc169f2e
-=======
-guid: 5e305629730ca2242bc77ac2aded0b9d
-timeCreated: 1496337033
-licenseType: Store
->>>>>>> 5049928ae5c2db2533e33e92c3d73558445a9cb4:Assets/ThridParty/low poly pack/Particle/Textur/5845d790af218158d0d20d4d.png.meta
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -17,6 +11,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -32,10 +28,13 @@ TextureImporter:
   textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: -1
     aniso: -1
     mipBias: -1
-    wrapMode: -1
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -72,7 +71,6 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-<<<<<<< HEAD:Assets/ThridParty/Cinemachine/Base/Editor/Resources/Cinemachine_header.tif.meta
     physicsShape: []
     bones: []
     spriteID: 
@@ -80,8 +78,6 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-=======
->>>>>>> 5049928ae5c2db2533e33e92c3d73558445a9cb4:Assets/ThridParty/low poly pack/Particle/Textur/5845d790af218158d0d20d4d.png.meta
   spritePackingTag: 
   userData: 
   assetBundleName: 
