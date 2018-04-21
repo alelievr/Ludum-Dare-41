@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/ThridParty/Cinemachine/Examples/Presets/Noise/Handheld_normal_mild.asset.meta
+guid: e52a21906d9fd4d2db7b59a6213c4301
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+=======
+guid: adf0738bacbec9143bac3c19518ab89a
+timeCreated: 1496401861
+licenseType: Store
+NativeFormatImporter:
+>>>>>>> 5049928ae5c2db2533e33e92c3d73558445a9cb4:Assets/ThridParty/low poly pack/Particle/Perfab/Dust.prefab.meta
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
