@@ -5,12 +5,13 @@ using UnityEngine;
 public class GodEvent : MonoBehaviour {
 
 	// Use this for initialization
-	public delegate void BuildFarm(Vector3 pos);
+	public delegate void BuildFarm(Vector3 pos, GameObject zone);
 	public static event BuildFarm farmEvent;
 
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
 
+	public GameObject	farm;
 
 	void Start () {
 	}
@@ -19,8 +20,11 @@ public class GodEvent : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.F))
 		{
-			if (farmEvent != null)			
-				farmEvent(transform.position);
+			if (farmEvent != null)		
+			{
+				GameObject newFarm = Instantiate(farm, transform.position, transform.rotation);
+				farmEvent(transform.position , newFarm);
+			}
 		}
 	}
 }

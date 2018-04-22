@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class FollowerController : MonoBehaviour {
 
 	bool	waiting = true;
-	public float shoutdist = 20f;
+	public float shoutdist = 50f;
 	
 	bool			goToDestination = false;
 	Vector3			dir;
@@ -17,6 +17,8 @@ public class FollowerController : MonoBehaviour {
 	bool issoldat = false;
 	public float distanceagro = 2;
 	GameObject Cible = null;
+	ZoneScript		zonesc;
+	bool 			gotapos = false;
 
 	private void Start()
 	{
@@ -30,18 +32,18 @@ public class FollowerController : MonoBehaviour {
 		GodEvent.cibleEvent += searchCible;
 	}
 
-	void	BuildFarm(Vector3 godPos)
+	void	BuildFarm(Vector3 godPos, GameObject zone)
 	{
-		if (waiting == true)
+		zonesc = zone.GetComponent<ZoneScript>();
+		if (waiting == true && zonesc.EmptySlot() == true)
 		{
-			
 			dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
 			float dist = dir.magnitude;
 			if (dist < shoutdist)
 			{
 				waiting = false;
 				destination = godPos;
-				goToDestination = true;
+				// goToDestination = true;
 				agent.SetDestination(destination);
 			}
 		}
@@ -58,10 +60,10 @@ public class FollowerController : MonoBehaviour {
 	float timesincelastime = 0;
 	// Update is called once per frame
 	void Update () {
-		if (goToDestination == true)
+		if (agent.remainingDistance < 2f && waiting == false && gotapos == false)
 		{
-			// VA LABAAA
-			Debug.DrawLine(transform.position, destination, Color.blue ,1f);
+			agent.SetDestination(zonesc.NextFreePos());
+			gotapos = true;
 		}
 		timesincelastime += Time.deltaTime;
 		if (issoldat && timesincelastime > 2)
@@ -69,5 +71,10 @@ public class FollowerController : MonoBehaviour {
 			timesincelastime = 0;
 			searchCible(this);
 		}
+		// if (goToDestination == true)
+		// {
+			// VA LABAAA
+			// Debug.DrawLine(transform.position, destination, Color.blue ,1f);
+		// }
 	}
 }
