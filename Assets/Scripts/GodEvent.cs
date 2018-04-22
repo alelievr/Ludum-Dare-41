@@ -8,6 +8,9 @@ public class GodEvent : MonoBehaviour {
 	public delegate void BuildFarm(Vector3 pos);
 	public static event BuildFarm farmEvent;
 
+	public delegate void searchCible(FollowerController fc);
+	public static event searchCible cibleEvent;
+
 
 	void Start () {
 	}

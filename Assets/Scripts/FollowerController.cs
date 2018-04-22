@@ -13,6 +13,10 @@ public class FollowerController : MonoBehaviour {
 	Vector3			dir;
 	Vector3			destination;
 	NavMeshAgent	agent;
+	FollowerController fc = null;
+	bool issoldat = false;
+	public float distanceagro = 2;
+	GameObject Cible = null;
 
 	private void Start()
 	{
@@ -23,6 +27,7 @@ public class FollowerController : MonoBehaviour {
 	private void OnEnable()
 	{
 		GodEvent.farmEvent += BuildFarm;
+		GodEvent.cibleEvent += searchCible;
 	}
 
 	void	BuildFarm(Vector3 godPos)
@@ -42,12 +47,27 @@ public class FollowerController : MonoBehaviour {
 		}
 	}
 
+	void searchCible(FollowerController fc)
+	{
+		if (fc.GetInstanceID() != this.GetInstanceID() && Vector3.Distance(fc.transform.position, transform.position) < distanceagro)
+		{
+			fc.Cible = this.gameObject;
+		}
+	}
+
+	float timesincelastime = 0;
 	// Update is called once per frame
 	void Update () {
 		if (goToDestination == true)
 		{
 			// VA LABAAA
 			Debug.DrawLine(transform.position, destination, Color.blue ,1f);
+		}
+		timesincelastime += Time.deltaTime;
+		if (issoldat && timesincelastime > 2)
+		{
+			timesincelastime = 0;
+			searchCible(this);
 		}
 	}
 }
