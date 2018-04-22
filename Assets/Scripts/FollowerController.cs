@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class FollowerController : MonoBehaviour {
 
 	bool	waiting = true;
 	public float shoutdist = 20f;
 	
-	bool	goToDestination = false;
-	Vector3 dir;
-	Vector3 destination;
+	bool			goToDestination = false;
+	Vector3			dir;
+	Vector3			destination;
+	NavMeshAgent	agent;
+
+	private void Start()
+	{
+		agent = GetComponent< NavMeshAgent >();
+	}
 
 	// Use this for initialization
 	private void OnEnable()
@@ -29,17 +37,11 @@ public class FollowerController : MonoBehaviour {
 				waiting = false;
 				destination = godPos;
 				goToDestination = true;
-
+				agent.SetDestination(destination);
 			}
 		}
 	}
 
-
-
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if (goToDestination == true)
