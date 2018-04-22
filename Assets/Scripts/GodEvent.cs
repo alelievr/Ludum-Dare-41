@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GodEvent : MonoBehaviour {
+// public class GodEvent : MonoBehaviour {
 
 
-	// Use this for initialization
-	public static event BuildFarm farmEvent;
+// 	// Use this for initialization
+// 	public static event BuildFarm farmEvent;
 
 
-	void Start () {
-	}
+// 	void Start () {
+// 	}
 
-	// Update is called once per frame
-	void Update () {
-		if (  )
-			farmEvent();
-	}
-}
+// 	// Update is called once per frame
+// 	void Update () {
+// 		if (  )
+// 			farmEvent();
+// 	}
+// }
 
