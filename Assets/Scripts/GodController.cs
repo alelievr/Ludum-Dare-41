@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class GodController : MonoBehaviour
 {
-	public float	speed;
+	public float		speed;
+	public Transform	head;
 
 	NavMeshAgent	agent;
 
@@ -14,10 +15,11 @@ public class GodController : MonoBehaviour
 		agent = GetComponent< NavMeshAgent >();
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
 		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+		input = Quaternion.AngleAxis(head.eulerAngles.y, Vector3.up) * input;
 
 		agent.Move(input.normalized * speed);
 	}

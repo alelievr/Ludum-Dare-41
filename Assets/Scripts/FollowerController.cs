@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 
 public enum FollowerState
@@ -18,26 +19,47 @@ public class FollowerController : MonoBehaviour
 {
 	[Header("Attack")]
 	public float	shoutdist = 50f;
+	public float	distanceagro = 2;
 
-	[Space, Header("Farming"), HideInInspector]
-	public float	farmProgress;
+	[Space, Header("Farming")]
 	public float	farmDuration = 5;
 	
 	[HideInInspector]
 	public FollowerState	state = FollowerState.Idle;
+	[HideInInspector]
+	public float	farmProgress;
+
+	[Space, Header("GUI")]
+	public float	progressBarYOffset = 1;
+
+	public GameObject	progressBarPrefab;
 
 	Vector3			dir;
 	NavMeshAgent	agent;
 	FollowerController fc = null;
 	bool			issoldat = false;
-	public float	distanceagro = 2;
 	GameObject		Cible = null;
 	ZoneScript		zonesc;
 	bool 			gotapos = false;
 
+	GameObject		worldCanva;
+	GameObject		progressBar;
+	Scrollbar		slider;
+
+	Camera			mainCam;
+
 	private void Start()
 	{
 		agent = GetComponent< NavMeshAgent >();
+		worldCanva = GameObject.Find("WorldCanva");
+
+		mainCam = Camera.main;
+
+		if (worldCanva != null)
+		{
+			progressBar = Instantiate(progressBarPrefab, worldCanva.transform);
+			slider = progressBar.GetComponentInChildren< Scrollbar >();
+		}
 	}
 
 	// Use this for initialization
@@ -74,6 +96,8 @@ public class FollowerController : MonoBehaviour
 	void Update ()
 	{
 		UpdateState();
+
+		UpdateGUI();
 
 		// if (agent.remainingDistance < 2f && state == FollowerState.Moving && gotapos == false)
 		// {
@@ -122,5 +146,16 @@ public class FollowerController : MonoBehaviour
 		farmProgress = 1;
 
 		state = FollowerState.Idle;
+	}
+
+	void UpdateGUI()
+	{
+		if (progressBar != null)
+		{
+			//update progress bar position
+			progressBar.transform.position = transform.position + Vector3.up * progressBarYOffset;
+
+			slider.size = farmProgress;
+		}
 	}
 }
