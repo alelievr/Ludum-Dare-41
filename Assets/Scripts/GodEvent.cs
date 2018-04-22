@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class GodEvent : MonoBehaviour {
+public class GodEvent : MonoBehaviour
+{
 
 	// Use this for initialization
-	public delegate void BuildFarm(Vector3 pos, GameObject zone);
-	public static event BuildFarm farmEvent;
+	public delegate void FarmDelegate(Vector3 pos, ZoneScript zone);
+	public static event FarmDelegate farmEvent;
 
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
 
-	public GameObject	farm;
+	ZoneScript[]		availableZones;
 
 	void Start () {
+		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
 	}
 
 	// Update is called once per frame
@@ -22,10 +25,16 @@ public class GodEvent : MonoBehaviour {
 		{
 			if (farmEvent != null)		
 			{
-				GameObject newFarm = Instantiate(farm, transform.position, transform.rotation);
-				farmEvent(transform.position , newFarm);
+				var targetZone = FindNearestZone();
+				farmEvent(transform.position, targetZone);
 			}
 		}
+	}
+
+	ZoneScript FindNearestZone()
+	{
+		Vector3 pos = transform.position;
+		return availableZones.OrderBy(z => (z.transform.position - pos).sqrMagnitude).First();
 	}
 }
   

@@ -212,7 +212,7 @@ MonoBehaviour:
   propData: {fileID: 11400000, guid: bfe9306ed2a5a4889a9f2e2860b371f0, type: 2}
   oldBaseMapSize: 16
   oldBaseMapDistance: 0
-  reenabled: 0
+  reenabled: 1
   sTerrainDirty: 0
 --- !u!1 &778090370
 GameObject:
@@ -315,7 +315,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1105754819}
-  - component: {fileID: 1105754818}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -323,17 +322,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1105754818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1105754817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e9e880cfe654a9488a714094344015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1105754819
 Transform:
   m_ObjectHideFlags: 0

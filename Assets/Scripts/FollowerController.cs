@@ -2,21 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+
+public enum FollowerState
+{
+	Idle,
+	MovingToFarm,
+	MovingToAttack,
+	Farming,
+	Attacking,
+}
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class FollowerController : MonoBehaviour {
+public class FollowerController : MonoBehaviour
+{
+	[Header("Attack")]
+	public float	shoutdist = 50f;
 
-	bool	waiting = true;
-	public float shoutdist = 50f;
+	[Space, Header("Farming"), HideInInspector]
+	public float	farmProgress;
+	public float	farmDuration = 5;
 	
-	bool			goToDestination = false;
+	[HideInInspector]
+	public FollowerState	state = FollowerState.Idle;
+
 	Vector3			dir;
-	Vector3			destination;
 	NavMeshAgent	agent;
 	FollowerController fc = null;
-	bool issoldat = false;
-	public float distanceagro = 2;
-	GameObject Cible = null;
+	bool			issoldat = false;
+	public float	distanceagro = 2;
+	GameObject		Cible = null;
 	ZoneScript		zonesc;
 	bool 			gotapos = false;
 
@@ -28,28 +43,25 @@ public class FollowerController : MonoBehaviour {
 	// Use this for initialization
 	private void OnEnable()
 	{
-		GodEvent.farmEvent += BuildFarm;
-		GodEvent.cibleEvent += searchCible;
+		GodEvent.farmEvent += FarmCallback;
+		GodEvent.cibleEvent += searchCibleCallback;
 	}
 
-	void	BuildFarm(Vector3 godPos, GameObject zone)
+	void	FarmCallback(Vector3 godPos, ZoneScript zone)
 	{
-		zonesc = zone.GetComponent<ZoneScript>();
-		if (waiting == true && zonesc.EmptySlot() == true)
+		zonesc = zone;
+
+		if (state == FollowerState.Idle && zonesc.EmptySlot())
 		{
 			dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
 			float dist = dir.magnitude;
-			if (dist < shoutdist)
-			{
-				waiting = false;
-				destination = godPos;
-				// goToDestination = true;
-				agent.SetDestination(destination);
-			}
+
+			state = FollowerState.MovingToFarm;
+			agent.SetDestination(zonesc.NextFreePos());
 		}
 	}
 
-	void searchCible(FollowerController fc)
+	void searchCibleCallback(FollowerController fc)
 	{
 		if (fc.GetInstanceID() != this.GetInstanceID() && Vector3.Distance(fc.transform.position, transform.position) < distanceagro)
 		{
@@ -59,22 +71,56 @@ public class FollowerController : MonoBehaviour {
 
 	float timesincelastime = 0;
 	// Update is called once per frame
-	void Update () {
-		if (agent.remainingDistance < 2f && waiting == false && gotapos == false)
-		{
-			agent.SetDestination(zonesc.NextFreePos());
-			gotapos = true;
-		}
+	void Update ()
+	{
+		UpdateState();
+
+		// if (agent.remainingDistance < 2f && state == FollowerState.Moving && gotapos == false)
+		// {
+		// 	agent.SetDestination(zonesc.NextFreePos());
+		// 	gotapos = true;
+		// }
+		
 		timesincelastime += Time.deltaTime;
 		if (issoldat && timesincelastime > 2)
 		{
 			timesincelastime = 0;
-			searchCible(this);
+			searchCibleCallback(this);
 		}
-		// if (goToDestination == true)
-		// {
-			// VA LABAAA
-			// Debug.DrawLine(transform.position, destination, Color.blue ,1f);
-		// }
+	}
+
+	void UpdateState()
+	{
+		switch (state)
+		{
+			case FollowerState.MovingToFarm:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					StartFarming();
+				break ;
+		}
+	}
+
+	void StartFarming()
+	{
+		Debug.Log("startFarm");
+		farmProgress = 0;
+
+		state = FollowerState.Farming;
+
+		StartCoroutine("UpdateFarming");
+	}
+
+	IEnumerator UpdateFarming()
+	{
+		float t = Time.time;
+
+		while (Time.time - t < farmDuration)
+		{
+			farmProgress = ((Time.time - t) / farmDuration);
+			yield return new WaitForEndOfFrame();
+		}
+		farmProgress = 1;
+
+		state = FollowerState.Idle;
 	}
 }
