@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/ThridParty/Cinemachine/Examples/Presets/Noise/Handheld_normal_extreme.asset.meta
 guid: b45c3ac134fbb481baa69de57f815d7a
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
-=======
-guid: f3a5fdff252253f428be724118083694
-timeCreated: 1497967161
-licenseType: Store
-NativeFormatImporter:
->>>>>>> 5049928ae5c2db2533e33e92c3d73558445a9cb4:Assets/ThridParty/low poly pack/Materials/Color_C08.mat.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
