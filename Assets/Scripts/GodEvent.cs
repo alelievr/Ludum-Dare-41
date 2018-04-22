@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class GodEvent : MonoBehaviour {
 
-
 	// Use this for initialization
-	public delegate void BuildFarm();
+	public delegate void BuildFarm(Vector3 pos);
 	public static event BuildFarm farmEvent;
 
 
@@ -18,8 +17,8 @@ public class GodEvent : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.F))
 		{
 			if (farmEvent != null)			
-				farmEvent();
+				farmEvent(transform.position);
 		}
 	}
 }
- 
+  
