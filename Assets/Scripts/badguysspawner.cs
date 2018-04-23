@@ -13,7 +13,7 @@ public class badguysspawner : MonoBehaviour {
 	public GameObject badguys;
 
 	void Start () {
-		god = Camera.Main.GetComponentsInParents<GodController>().
+		// god = Camera.Main.GetComponentsInParents<GodController>().
 	}
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class badguysspawner : MonoBehaviour {
 			for (int i = 0; i < numberofspam; i++)
 			{
 				GameObject tmp =GameObject.Instantiate(badguys, transform.position, Quaternion.identity);
-				tmp.agent.setdestination(cibleofspam);
+				// tmp.agent.setdestination(cibleofspam);
 			}
 		}
 	}
