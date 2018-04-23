@@ -93,7 +93,6 @@ public class FollowerController : MonoBehaviour
 	void	FollowGodCallBack(Transform gt)
 	{
 		float dist = Vector3.Distance(transform.position, gt.position);
-		Debug.Log(dist);
 		if ((state == FollowerState.Idle || state == FollowerState.MovingToAttack || state == FollowerState.Attacking) && dist < shoutdist)
 		{
 			Debug.Log("FOLLOW THE GOD");
@@ -107,7 +106,6 @@ public class FollowerController : MonoBehaviour
 	void	StayCallBack(Vector3 pos)
 	{
 		float dist = Vector3.Distance(transform.position, pos);
-		Debug.Log(dist);
 		if (state == FollowerState.FollowGod && dist < shoutdist)
 		{
 			Debug.Log("I STAY HERE");
@@ -157,26 +155,12 @@ public class FollowerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		UpdateState();
-
 		UpdateGUI();
 
-		// if (agent.remainingDistance < 2f && state == FollowerState.Moving && gotapos == false)
-		// {
-		// 	agent.SetDestination(zonesc.NextFreePos());
-		// 	gotapos = true;
-		// }
+		if (issoldat)
+			UpdateSoldat();
 
-		// parti soldat
-		
-		if (!issoldat)
-			return ;
-		timesincelastime += Time.deltaTime;
-		if (timesincelastime > 2)
-		{
-			timesincelastime = 0;
-			searchCible();
-		}
+		UpdateState();
 	}
 
 	void UpdateState()
@@ -184,7 +168,7 @@ public class FollowerController : MonoBehaviour
 		switch (state)
 		{
 			case FollowerState.MovingToFarm:
-				if (agent.remainingDistance < agent.stoppingDistance)
+				if (agent.remainingDistance < agent.stoppingDistance && Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
 					StartFarming();
 				break ;
 
@@ -253,37 +237,40 @@ public class FollowerController : MonoBehaviour
 
 	void StartFarming()
 	{
-		Debug.Log("startFarm");
-		// farmProgress = 0;
-
 		state = FollowerState.Farming;
 
-		// StartCoroutine("UpdateFarming");
+		StartCoroutine("UpdateFarming");
 	}
 
-	// IEnumerator UpdateFarming()
-	// {
-	// 	float t = Time.time;
+	IEnumerator UpdateFarming()
+	{
+		while (true)
+		{
+			float t = Time.time;
 
-	// 	while (Time.time - t < farmDuration)
-	// 	{
-	// 		farmProgress = ((Time.time - t) / farmDuration);
-	// 		yield return new WaitForEndOfFrame();
-	// 	}
-	// 	farmProgress = 1;
+			farmProgress = 0;
+			while (Time.time - t < farmDuration)
+			{
+				farmProgress = ((Time.time - t) / farmDuration);
+				yield return new WaitForEndOfFrame();
+			}
+			farmProgress = 1;
 
-	// 	state = FollowerState.Idle;
-	// }
+			GameManager.instance.AddCrystal(1);
+		}
+	}
 
 	void UpdateGUI()
 	{
-		// if (progressBar != null)
-		// {
-		// 	//update progress bar position
-		// 	progressBar.transform.position = transform.position + Vector3.up * progressBarYOffset;
+		if (progressBar != null)
+		{
+			//update progress bar position
+			progressBar.transform.position = transform.position + Vector3.up * progressBarYOffset;
 
-		// 	slider.size = farmProgress;
-		// }
+			slider.size = farmProgress;
+
+			progressBar.SetActive(farmProgress != 0);
+		}
 	}
 
 	public void ouch(float damage)
@@ -305,5 +292,15 @@ public class FollowerController : MonoBehaviour
 			GodEvent.listAllFollower.Remove(this);
 		}
 		GameObject.Destroy(gameObject);
+	}
+
+	void UpdateSoldat()
+	{
+		timesincelastime += Time.deltaTime;
+		if (timesincelastime > 2)
+		{
+			timesincelastime = 0;
+			searchCible();
+		}
 	}
 }
