@@ -54,13 +54,10 @@ public class FollowerController : MonoBehaviour
 	Camera			mainCam;
 
 	Vector3 oldDestination;
-<<<<<<< HEAD
 	FollowerState oldstate;
 
 	public bool		badguys = false;
-=======
 	Transform		godTrans;
->>>>>>> a3534a531f1e149f6adec3f90e5b5066fca3519d
 
 
 	private void Start()
