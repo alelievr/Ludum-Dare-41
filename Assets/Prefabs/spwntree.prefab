@@ -1329,7 +1329,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231923310618948}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 141.5, y: 24.21, z: 72.8}
+  m_LocalPosition: {x: 146.8567, y: 0, z: 86.771935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4941450889771546}
@@ -2328,10 +2328,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneType: 1
-  follower: {fileID: 0}
+  follower: {fileID: 1214566354649562, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   followerNeeded: 29
   followerCount: 6
   spawnDelay: 5
+  selectedGO: {fileID: 0}
   posTab:
   - {fileID: 4537646082587158}
   - {fileID: 4326064353334094}

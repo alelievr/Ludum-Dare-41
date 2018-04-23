@@ -330,7 +330,7 @@ public class FollowerController : MonoBehaviour
 
 		state = FollowerState.Spawning;
 
-		StartCoroutine("UpdateSpawning");
+		// StartCoroutine("UpdateSpawning");
 	}
 
 

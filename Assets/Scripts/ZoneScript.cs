@@ -52,7 +52,7 @@ public class ZoneScript : MonoBehaviour
 	{
 		while (true)
 		{
-				Instantiate(follower, transform.position , transform.rotation);
+			Instantiate(follower, transform.position , transform.rotation);
 			yield return new WaitForSeconds(spawnDelay);
 		}
 	}
