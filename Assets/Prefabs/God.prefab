@@ -2443,7 +2443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnZone: {fileID: 1231923310618948, guid: c9bf777353dec4c01bdd064bc11082e9, type: 2}
-  ArmoryZone: {fileID: 0}
+  ArmoryZone: {fileID: 1473758823537826, guid: 45eaaf1cbdb364925a4ced8890d5f384, type: 2}
   pscharge: {fileID: 198247836910056804, guid: 0342ccb20fcde47e687bd3bcd8758207, type: 2}
 --- !u!124 &124318651588238118
 Behaviour:
