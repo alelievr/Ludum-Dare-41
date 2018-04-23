@@ -13,17 +13,24 @@ public class ZoneScript : MonoBehaviour
 {
 	public ZoneType	zoneType;
 
-	public int followerNeeded = 30;
+	public int followerNeeded;
 
 	public int followerCount = 0;
 
-	static int i = 0;
+	int i = 1;
 
-	public List< Transform > posTab = new List< Transform >();
+	//public List< Transform > posTab = new List< Transform >();
+	public List< Transform > posTab;
+
+	private void Start()
+	{
+		posTab = new List< Transform>(GetComponentsInChildren<Transform>());
+		followerNeeded = transform.childCount - 1;
+	}
 
 	public Vector3 NextFreePos()
 	{
-		Vector3 pos = posTab[i].position;
+		Vector3 pos = posTab[i].position + new Vector3(5, 0, 0);
 		i++;
 		return (pos);
 	}

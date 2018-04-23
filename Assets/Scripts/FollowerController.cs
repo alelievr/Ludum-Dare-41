@@ -24,7 +24,7 @@ public class FollowerController : MonoBehaviour
 	[Space, Header("Farming")]
 	public float	farmDuration = 5;
 	
-	[HideInInspector]
+	// [HideInInspector]
 	public FollowerState	state = FollowerState.Idle;
 	[HideInInspector]
 	public float	farmProgress;
@@ -75,6 +75,7 @@ public class FollowerController : MonoBehaviour
 
 		if (state == FollowerState.Idle && zonesc.EmptySlot())
 		{
+			Debug.Log("JE SUIS FERMIER");
 			dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
 			float dist = dir.magnitude;
 
@@ -127,35 +128,35 @@ public class FollowerController : MonoBehaviour
 	void StartFarming()
 	{
 		Debug.Log("startFarm");
-		farmProgress = 0;
+		// farmProgress = 0;
 
 		state = FollowerState.Farming;
 
-		StartCoroutine("UpdateFarming");
+		// StartCoroutine("UpdateFarming");
 	}
 
-	IEnumerator UpdateFarming()
-	{
-		float t = Time.time;
+	// IEnumerator UpdateFarming()
+	// {
+	// 	float t = Time.time;
 
-		while (Time.time - t < farmDuration)
-		{
-			farmProgress = ((Time.time - t) / farmDuration);
-			yield return new WaitForEndOfFrame();
-		}
-		farmProgress = 1;
+	// 	while (Time.time - t < farmDuration)
+	// 	{
+	// 		farmProgress = ((Time.time - t) / farmDuration);
+	// 		yield return new WaitForEndOfFrame();
+	// 	}
+	// 	farmProgress = 1;
 
-		state = FollowerState.Idle;
-	}
+	// 	state = FollowerState.Idle;
+	// }
 
 	void UpdateGUI()
 	{
-		if (progressBar != null)
-		{
-			//update progress bar position
-			progressBar.transform.position = transform.position + Vector3.up * progressBarYOffset;
+		// if (progressBar != null)
+		// {
+		// 	//update progress bar position
+		// 	progressBar.transform.position = transform.position + Vector3.up * progressBarYOffset;
 
-			slider.size = farmProgress;
-		}
+		// 	slider.size = farmProgress;
+		// }
 	}
 }
