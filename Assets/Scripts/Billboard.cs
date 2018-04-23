@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
+	public bool flipX;
+
 	Camera	cam;
 
 	void Start ()
@@ -13,6 +15,6 @@ public class Billboard : MonoBehaviour
 	
 	void Update ()
 	{
-		transform.LookAt(transform.position + cam.transform.rotation * Vector3.back, cam.transform.rotation * Vector3.up);
+		transform.LookAt(transform.position + cam.transform.rotation * ((flipX) ? Vector3.forward : Vector3.back), cam.transform.rotation * Vector3.up);
 	}
 }

@@ -6,7 +6,7 @@ public enum ZoneType
 {
 	Farm,
 	FollowerSpawn,
-	// Attack,
+	Armory,
 }
 
 [ExecuteInEditMode]
@@ -20,20 +20,19 @@ public class ZoneScript : MonoBehaviour
 	public int followerCount = 0;
 	public float spawnDelay = 5f;
 
-	int i = 1;
+	[Space]
+	public GameObject	selectedGO;
+
+	Transform		godTransform;
+
+	int				i = 1;
+	bool			selected;
+
+	ParticleSystem	selectedParticles;
 
 	//public List< Transform > posTab = new List< Transform >();
 	[HideInInspector]
 	public List< Transform > posTab;
-
-	IEnumerator	Spawn()
-	{
-		while (true)
-		{
-				Instantiate(follower, transform.position , transform.rotation);
-			yield return new WaitForSeconds(spawnDelay);
-		}
-	}
 
 	private void Start()
 	{
@@ -43,6 +42,19 @@ public class ZoneScript : MonoBehaviour
 		Debug.Log("les chiffer " + posTab.Count + "ledezim" + followerNeeded);
 		if (zoneType == ZoneType.FollowerSpawn)
 			StartCoroutine(Spawn());
+
+		godTransform = GameObject.Find("God").transform;
+
+		selectedParticles = GetComponent< ParticleSystem >();
+	}
+
+	IEnumerator	Spawn()
+	{
+		while (true)
+		{
+				Instantiate(follower, transform.position , transform.rotation);
+			yield return new WaitForSeconds(spawnDelay);
+		}
 	}
 
 	public Vector3 NextFreePos()
@@ -58,13 +70,17 @@ public class ZoneScript : MonoBehaviour
 		return posTab.Count > followerCount;
 	}
 
-	void Update () {
-		
-	// switch (zoneType)
-	// {
-	// 	case ZoneType.FollowerSpawn :
-	// 		break;
-		
-	// }
+	void Update ()
+	{
+		selected = Vector3.Distance(godTransform.position, transform.position) < GodEvent.farmEventMaxDistance;
+
+		if (selectedGO != null)
+			selectedGO.SetActive(selected);
+
+		if (selectedParticles != null)
+		{
+			var emi = selectedParticles.emission;
+			emi.enabled = selected;
+		}
 	}
 }
