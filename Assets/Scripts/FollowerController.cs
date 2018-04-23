@@ -40,6 +40,7 @@ public class FollowerController : MonoBehaviour
 
 	[Space, Header("GUI")]
 	public float	progressBarYOffset = 1;
+	public float	progressBarHideDistance = 200;
 
 	public GameObject	progressBarPrefab;
 
@@ -337,7 +338,10 @@ public class FollowerController : MonoBehaviour
 
 			slider.size = farmProgress;
 
-			progressBar.SetActive(farmProgress != 0);
+			if (godTrans != null && Vector3.Distance(transform.position, godTrans.position) > progressBarHideDistance)
+				progressBar.SetActive(false);
+			else
+				progressBar.SetActive(farmProgress != 0);
 		}
 	}
 
