@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum ZoneType
 {
@@ -55,7 +56,10 @@ public class ZoneScript : MonoBehaviour
 	{
 		while (true)
 		{
-			Instantiate(follower, transform.position , transform.rotation);
+			var go = Instantiate(follower, transform.position , transform.rotation);
+			var agent = go.GetComponent< NavMeshAgent >();
+			agent.Move(go.transform.forward * 2);
+
 			yield return new WaitForSeconds(spawnDelay);
 		}
 	}

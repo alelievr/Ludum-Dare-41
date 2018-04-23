@@ -398,7 +398,7 @@ public class FollowerController : MonoBehaviour
 	void UpdateSoldat()
 	{
 		timesincelastime += Time.deltaTime;
-		if (timesincelastime > 2)
+		if (timesincelastime > 0.5f)
 		{
 			timesincelastime = 0;
 			searchCible();
