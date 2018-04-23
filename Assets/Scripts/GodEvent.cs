@@ -24,7 +24,9 @@ public class GodEvent : MonoBehaviour
 
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
-	public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
+	[HideInInspector] public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
+	[HideInInspector] public static int money = 200;
+	[HideInInspector] public static int moneygainby5s = 20;
 	[HideInInspector] public static GodController god;
 
 	void Start () {
@@ -59,7 +61,7 @@ public class GodEvent : MonoBehaviour
 				stayEvent(transform.position);
 			}
 		}
-		if (Input.GetKeyDown(KeyCode.R))
+		if (Input.GetMouseButtonDown(0))
 		{
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))

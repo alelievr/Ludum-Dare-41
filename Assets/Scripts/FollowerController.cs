@@ -59,6 +59,7 @@ public class FollowerController : MonoBehaviour
 
 	public bool		badguys = false;
 	Transform		godTrans;
+	Utils			env;
 
 
 	private void Start()
@@ -168,6 +169,13 @@ public class FollowerController : MonoBehaviour
 			searchCibleCallback(GodEvent.god.gameObject);
 	}
 
+	void upgradetosoldat()
+	{
+		issoldat = true;
+		GetComponent<MeshRenderer>().materials[0] = env.soldatmat;
+	}
+
+
 	float timesincelastime = 0;
 	// Update is called once per frame
 	void Update ()
@@ -276,22 +284,18 @@ public class FollowerController : MonoBehaviour
 
 		state = FollowerState.Farming;
 
-		// StartCoroutine("UpdateFarming");
+		StartCoroutine("UpdateFarming");
 	}
 
-	// IEnumerator UpdateFarming()
-	// {
-	// 	float t = Time.time;
+	IEnumerator UpdateFarming()
+	{
 
-	// 	while (Time.time - t < farmDuration)
-	// 	{
-	// 		farmProgress = ((Time.time - t) / farmDuration);
-	// 		yield return new WaitForEndOfFrame();
-	// 	}
-	// 	farmProgress = 1;
-
-	// 	state = FollowerState.Idle;
-	// }
+		while (true)
+		{
+			yield return new WaitForSeconds(10);
+			GodEvent.money += GodEvent.moneygainby5s;
+		}
+	}
 
 	void UpdateGUI()
 	{
