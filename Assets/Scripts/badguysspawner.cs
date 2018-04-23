@@ -11,9 +11,10 @@ public class badguysspawner : MonoBehaviour {
 	float timesincelast = 0;
 	GodController god;
 	public GameObject badguys;
+	public int 		maxspawned = 30;
 
 	void Start () {
-		// god = Camera.Main.GetComponentsInParents<GodController>().
+		god = Camera.main.GetComponentInParent<GodController>();
 	}
 	
 	// Update is called once per frame
@@ -24,8 +25,8 @@ public class badguysspawner : MonoBehaviour {
 			timesincelast = 0;
 			for (int i = 0; i < numberofspam; i++)
 			{
-				GameObject tmp =GameObject.Instantiate(badguys, transform.position, Quaternion.identity);
-				// tmp.agent.setdestination(cibleofspam);
+				GameObject tmp = GameObject.Instantiate(badguys, transform.position, Quaternion.identity);
+				tmp.GetComponent<FollowerController>().ChargeCallback(cibleofspam);
 			}
 		}
 	}
