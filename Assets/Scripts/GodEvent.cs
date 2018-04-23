@@ -5,7 +5,7 @@ using System.Linq;
 
 public class GodEvent : MonoBehaviour
 {
-
+	float		shoutDist = 50f;
 	// Use this for initialization
 	public delegate void FarmDelegate(Vector3 pos, ZoneScript zone);
 	public static event FarmDelegate farmEvent;
@@ -13,7 +13,7 @@ public class GodEvent : MonoBehaviour
 	public delegate void FollowGodDelegate(Transform godTrans);
 	public static event FollowGodDelegate followEvent;
 
-	public delegate void StayDelegate();
+	public delegate void StayDelegate(Vector3 pos);
 	public static event StayDelegate stayEvent;
 
 	public delegate void searchCible(FollowerController fc);
@@ -36,8 +36,9 @@ public class GodEvent : MonoBehaviour
 			if (farmEvent != null)
 			{
 				Debug.Log("FARRMM");
-				var targetZone = FindNearestZone();
-				farmEvent(transform.position, targetZone);
+				ZoneScript targetZone = FindNearestZone();
+				if (Vector3.Distance(targetZone.transform.position, transform.position) < shoutDist)
+					farmEvent(transform.position, targetZone);
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.E))
@@ -53,7 +54,7 @@ public class GodEvent : MonoBehaviour
 			if (stayEvent != null)
 			{
 				Debug.Log("STAY HERE");
-				stayEvent();
+				stayEvent(transform.position);
 			}
 		}
 	}
@@ -63,4 +64,9 @@ public class GodEvent : MonoBehaviour
 		Vector3 pos = transform.position;
 		return availableZones.OrderBy(z => (z.transform.position - pos).sqrMagnitude).First();
 	}
+
+	//  void OnDrawGizmos() {
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawSphere(transform.position, 50f);
+    // }
 }

@@ -19,7 +19,7 @@ public enum FollowerState
 public class FollowerController : MonoBehaviour
 {
 	[Header("Attack")]
-	public float	shoutdist = 50f;
+	float	shoutdist = 50f;
 	public float	distanceagro = 2;
 	public float	attackRange = 3;
 	public float	attacktime = 1;
@@ -92,7 +92,9 @@ public class FollowerController : MonoBehaviour
 
 	void	FollowGodCallBack(Transform gt)
 	{
-		if (state == FollowerState.Idle || 	state == FollowerState.MovingToAttack || state == FollowerState.Attacking)
+		float dist = Vector3.Distance(transform.position, gt.position);
+		Debug.Log(dist);
+		if ((state == FollowerState.Idle || state == FollowerState.MovingToAttack || state == FollowerState.Attacking) && dist < shoutdist)
 		{
 			Debug.Log("FOLLOW THE GOD");
 			state = FollowerState.FollowGod;
@@ -102,9 +104,11 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
-	void	StayCallBack()
+	void	StayCallBack(Vector3 pos)
 	{
-		if (state == FollowerState.FollowGod)
+		float dist = Vector3.Distance(transform.position, pos);
+		Debug.Log(dist);
+		if (state == FollowerState.FollowGod && dist < shoutdist)
 		{
 			Debug.Log("I STAY HERE");
 			state = FollowerState.Idle;
@@ -115,15 +119,17 @@ public class FollowerController : MonoBehaviour
 	void	FarmCallback(Vector3 godPos, ZoneScript zone)
 	{
 		zonesc = zone;
-
-		if ((state == FollowerState.Idle || state == FollowerState.FollowGod) && zonesc.EmptySlot())
+		if 	(Vector3.Distance(transform.position, godPos) < shoutdist)
 		{
-			Debug.Log("JE SUIS FERMIER");
-			dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
-			float dist = dir.magnitude;
+			if (/*(state == FollowerState.Idle || */state == FollowerState.FollowGod/*)*/ && zonesc.EmptySlot())
+			{
+				Debug.Log("JE SUIS FERMIER");
+				dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
+				float dist = dir.magnitude;
 
-			state = FollowerState.MovingToFarm;
-			agent.SetDestination(zonesc.NextFreePos());
+				state = FollowerState.MovingToFarm;
+				agent.SetDestination(zonesc.NextFreePos());
+			}
 		}
 	}
 

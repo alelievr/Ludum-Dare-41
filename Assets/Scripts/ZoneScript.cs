@@ -31,7 +31,7 @@ public class ZoneScript : MonoBehaviour
 
 	public Vector3 NextFreePos()
 	{
-		Vector3 pos = posTab[i].position + new Vector3(5, 0, 0);
+		Vector3 pos = posTab[i].position + new Vector3(2, 0, 0);
 		i++;
 		return (pos);
 	}
@@ -39,7 +39,7 @@ public class ZoneScript : MonoBehaviour
 	public bool EmptySlot()
 	{
 		followerCount++;
-		return posTab.Count >= followerCount;
+		return posTab.Count > followerCount;
 	}
 
 	void Update () {
