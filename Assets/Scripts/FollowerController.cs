@@ -229,7 +229,7 @@ public class FollowerController : MonoBehaviour
 				if (tmp2 = Cible.GetComponent<FollowerController>())
 					tmp2.ouch(1);
 				else if (tmp3 = Cible.GetComponent<GodController>())
-					GodController.ouch(1);
+					tmp3.ouch(1);
 				asattacked = true;
 			}
 			transform.position = originalpos + dirattack * tmp;
