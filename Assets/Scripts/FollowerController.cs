@@ -78,13 +78,15 @@ public class FollowerController : MonoBehaviour
 	private void OnEnable()
 	{
 		if (badguys == false)
-			GodEvent.listAllFollower.Add(this);
-		else
 		{
-			GodEvent.listAllBadGuys.Add(this);
+			GodEvent.listAllFollower.Add(this);
 			GodEvent.farmEvent += FarmCallback;
 			GodEvent.followEvent += FollowGodCallBack;
 			GodEvent.stayEvent += StayCallBack;
+		}
+		else
+		{
+			GodEvent.listAllBadGuys.Add(this);
 		}
 	}
 
