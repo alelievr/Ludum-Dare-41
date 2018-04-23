@@ -264,6 +264,10 @@ public class FollowerController : MonoBehaviour
 				}
 				break ;
 		}
+		// if (badguys && badguyfocusgod == false && agent.remainingDistance < agent.stoppingDistance)
+		// 	badguyfocusgod = true;
+		// if (FollowerState.MovingToAttack.Idle && badguyfocusgod)
+		// 	agent.SetDestination(env)
 	}
 
 	void attackcible()
