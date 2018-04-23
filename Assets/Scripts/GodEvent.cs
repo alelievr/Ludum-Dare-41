@@ -5,7 +5,8 @@ using System.Linq;
 
 public class GodEvent : MonoBehaviour
 {
-	float		shoutDist = 50f;
+	public static readonly float		farmEventMaxDistance = 50f;
+	
 	// Use this for initialization
 	public delegate void FarmDelegate(Vector3 pos, ZoneScript zone);
 	public static event FarmDelegate farmEvent;
@@ -43,22 +44,27 @@ public class GodEvent : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (Input.GetKeyDown(KeyCode.F))
 		{
 			if (farmEvent != null)
 			{
-				Debug.Log("FARRMM");
 				ZoneScript targetZone = FindNearestZone(availableZones);
-				if (Vector3.Distance(targetZone.transform.position, transform.position) < shoutDist)
+				if (Vector3.Distance(targetZone.transform.position, transform.position) < farmEventMaxDistance)
+				{
+					GUINotification.instance.AddNotification("Farm !");
 					farmEvent(transform.position, targetZone);
+				}
+				else
+					GUINotification.instance.AddNotification("Too far to farm !", NotificationType.Error);
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			if (followEvent != null)
 			{
-				Debug.Log("COME TO MEEEE");
+				GUINotification.instance.AddNotification("Follow me !");
 				followEvent(transform);
 			}
 		}
@@ -66,7 +72,7 @@ public class GodEvent : MonoBehaviour
 		{
 			if (stayEvent != null)
 			{
-				Debug.Log("STAY HERE");
+				GUINotification.instance.AddNotification("Stay here !");
 				stayEvent(transform.position);
 			}
 		}
@@ -74,7 +80,7 @@ public class GodEvent : MonoBehaviour
 		{
 			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
 			{
-				Debug.Log("SPAWN HERE");
+				GUINotification.instance.AddNotification("Build spawner here !");
 				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponentInChildren<ZoneScript>();
 				spawnEvent(GetComponent<GodEvent>(), targetZone);
 			}
@@ -94,7 +100,7 @@ public class GodEvent : MonoBehaviour
 					if (GodEvent.listAllFollowerFollowing[i].issoldat == false)
 					{
 						Debug.Log("JE SUIS ARM");
-						GodEvent.listAllFollowerFollowing[i].state = FollowerState.MovingToArmory;
+						GodEvent.listAllFollowerFollowing[i].state = FollowerState.MovingToAttack;
 						GodEvent.listAllFollowerFollowing[i].agent.SetDestination(zonesc.NextFreePos());
 						GodEvent.listAllFollowerFollowing.Remove(GodEvent.listAllFollowerFollowing[i]);
 						j++;
