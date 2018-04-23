@@ -16,6 +16,8 @@ public enum FollowerState
 	Farming,
 	Attacking,
 	Charging,
+	MovingToArmory,
+	StatingState,
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -45,7 +47,7 @@ public class FollowerController : MonoBehaviour
 	public GameObject	progressBarPrefab;
 
 	Vector3			dir;
-	NavMeshAgent	agent;
+	[HideInInspector] public NavMeshAgent	agent;
 	FollowerController fc = null;
 	GameObject		Cible = null;
 	ZoneScript		zonesc;
@@ -97,16 +99,29 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
-	public bool ChargeCallback(Vector3 pos)
+	Vector3 chargedest;
+
+	public bool ToArmCallback(Vector3 pos, ZoneScript zone)
 	{
+		GodEvent.listAllFollowerFollowing.Remove(this);
 		if (issoldat)
 		{
-			agent.SetDestination(pos);
-			state = FollowerState.Charging;
-			GodEvent.listAllFollowerFollowing.Remove(this);
+			ChargeCallback(pos);
 			return true;
 		}
-		return false;
+		chargedest = pos;
+		zonesc = zone;
+		Debug.Log("TO ARM!");
+		state = FollowerState.MovingToArmory;
+		agent.SetDestination(zonesc.transform.position);
+		return true;
+	}
+
+	public void ChargeCallback(Vector3 pos)
+	{	
+		Debug.Log("Charge!");
+		agent.SetDestination(pos);
+		state = FollowerState.Charging;
 	}
 
 	void	FollowGodCallBack(Transform gt)
@@ -224,12 +239,12 @@ public class FollowerController : MonoBehaviour
 					state = FollowerState.Idle;
 				break ;
 			case FollowerState.MovingToAttack:
-			if (!Cible)
-			{
-				state = oldstate;
-				break ;
-			}
-			agent.SetDestination(Cible.transform.position);
+				if (!Cible)
+				{
+					state = oldstate;
+					break ;
+				}
+				agent.SetDestination(Cible.transform.position);
 				if (agent.remainingDistance < attackRange)
 					attackcible();
 				break ;
@@ -239,6 +254,13 @@ public class FollowerController : MonoBehaviour
 			case FollowerState.MovingToSpawn:
 				if (agent.remainingDistance < agent.stoppingDistance)
 					StartSpawning();
+				break ;
+			case FollowerState.MovingToArmory:
+				if (agent.remainingDistance < agent.stoppingDistance || agent.remainingDistance < 3)
+				{
+					upgradetosoldat();
+					ChargeCallback(chargedest);
+				}
 				break ;
 		}
 	}

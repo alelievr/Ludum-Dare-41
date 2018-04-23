@@ -6,7 +6,7 @@ public enum ZoneType
 {
 	Farm,
 	FollowerSpawn,
-	// Attack,
+	Armory,
 }
 
 [ExecuteInEditMode]
