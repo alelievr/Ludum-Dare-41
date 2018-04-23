@@ -16,6 +16,8 @@ public class GodEvent : MonoBehaviour
 	ZoneScript[]		availableZones;
 
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
+	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
+	[HideInInspector] public static GodController god;
 
 	void Start () {
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();

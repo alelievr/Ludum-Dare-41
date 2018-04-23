@@ -52,6 +52,9 @@ public class FollowerController : MonoBehaviour
 	Camera			mainCam;
 
 	Vector3 oldDestination;
+	FollowerState oldstate;
+
+	public bool		badguys = false;
 
 
 	private void Start()
@@ -71,8 +74,13 @@ public class FollowerController : MonoBehaviour
 	// Use this for initialization
 	private void OnEnable()
 	{
-		GodEvent.farmEvent += FarmCallback;
-		GodEvent.listAllFollower.Add(this);
+		if (badguys == false)
+			GodEvent.listAllFollower.Add(this);
+		else
+		{
+			GodEvent.farmEvent += FarmCallback;
+			GodEvent.listAllBadGuys.Add(this);
+		}
 	}
 
 	void	FarmCallback(Vector3 godPos, ZoneScript zone)
@@ -90,26 +98,24 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
-	void searchCibleCallback(FollowerController fc)
+	void searchCibleCallback(GameObject fc)
 	{
-		Debug.Log("dsad3");
 		if (fc.GetInstanceID() != this.GetInstanceID() && Vector3.Distance(fc.transform.position, transform.position) < distanceagro
 			&& (Cible == null || Vector3.Distance(Cible.transform.position, transform.position) >= Vector3.Distance(fc.transform.position, transform.position)))
 		{
-			Debug.Log("dsad4");
-			Cible = fc.gameObject;
+			Cible = fc;
 			state = FollowerState.MovingToAttack;
-			oldDestination = agent.destination;
 		}
 	}
 
 	void searchCible()
 	{
-		Debug.Log("dsad");
-		foreach(FollowerController fc in GodEvent.listAllFollower)
-		{
-			searchCibleCallback(fc);
-		}
+		oldstate = state;
+		oldDestination = agent.destination;
+		foreach(FollowerController fc in (badguys) ? GodEvent.listAllFollower : GodEvent.listAllBadGuys)
+			searchCibleCallback(fc.gameObject);
+		if (badguys)
+			searchCibleCallback(GodEvent.god.gameObject);
 	}
 
 	float timesincelastime = 0;
@@ -148,6 +154,11 @@ public class FollowerController : MonoBehaviour
 				break ;
 
 			case FollowerState.MovingToAttack:
+			if (!Cible)
+			{
+				state = oldstate;
+				break ;
+			}
 			agent.SetDestination(Cible.transform.position);
 				if (agent.remainingDistance < attackRange)
 					attackcible();
@@ -184,8 +195,11 @@ public class FollowerController : MonoBehaviour
 			if (asattacked == false &&  tmp > 0)
 			{
 				FollowerController tmp2;
+				GodController tmp3;
 				if (tmp2 = Cible.GetComponent<FollowerController>())
 					tmp2.ouch(1);
+				else if (tmp3 = Cible.GetComponent<GodController>())
+					GodController.ouch();
 				asattacked = true;
 			}
 			transform.position = originalpos + dirattack * tmp;
@@ -196,7 +210,7 @@ public class FollowerController : MonoBehaviour
 				Cible = null;
 			agent.SetDestination(oldDestination);
 		}
-		state = FollowerState.Idle;
+		state = oldstate;
 	}
 
 	void StartFarming()
@@ -245,8 +259,13 @@ public class FollowerController : MonoBehaviour
 	void autodestruct()
 	{
 		Debug.Log("autodestruct");
-		GodEvent.farmEvent -= FarmCallback;
-		GodEvent.listAllFollower.Remove(this);
+		if (badguys)
+			GodEvent.listAllBadGuys.Remove(this);
+		else
+		{
+			GodEvent.farmEvent -= FarmCallback;
+			GodEvent.listAllFollower.Remove(this);
+		}
 		GameObject.Destroy(gameObject);
 	}
 }

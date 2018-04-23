@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GodController : MonoBehaviour
 {
 	public float		speed;
 	public Transform	head;
+	public float life = 100;
 
 	NavMeshAgent	agent;
 
 	void Start ()
 	{
+		GodEvent.god = this;
 		agent = GetComponent< NavMeshAgent >();
 	}
 	
@@ -22,5 +25,12 @@ public class GodController : MonoBehaviour
 		input = Quaternion.AngleAxis(head.eulerAngles.y, Vector3.up) * input;
 
 		agent.Move(input.normalized * speed);
+	}
+
+	void ouch(float damage)
+	{
+		life -= damage;
+		if (life <= 0)
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }
