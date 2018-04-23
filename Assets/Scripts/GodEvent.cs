@@ -73,7 +73,7 @@ public class GodEvent : MonoBehaviour
 			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
 			{
 				Debug.Log("SPAWN HERE");
-				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
+				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponentInChildren<ZoneScript>();
 				spawnEvent(GetComponent<GodEvent>(), targetZone);
 			}
 		}

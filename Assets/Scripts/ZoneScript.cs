@@ -13,10 +13,12 @@ public enum ZoneType
 public class ZoneScript : MonoBehaviour
 {
 	public ZoneType	zoneType;
+	public GameObject	follower;
 
 	public int followerNeeded;
 
 	public int followerCount = 0;
+	public float spawnDelay = 5f;
 
 	int i = 1;
 
@@ -24,20 +26,23 @@ public class ZoneScript : MonoBehaviour
 	[HideInInspector]
 	public List< Transform > posTab;
 
-	// IEnumerator	SpawnProtect()
-	// {
-	// 	yield return new WaitForSeconds(1f);
-	// 	if (posTab.Count != followerCount)
-	// 		Destroy(this.gameObject);
-	// 	yield break;
-	// }
+	IEnumerator	Spawn()
+	{
+		while (true)
+		{
+				Instantiate(follower, transform.position , transform.rotation);
+			yield return new WaitForSeconds(spawnDelay);
+		}
+	}
 
 	private void Start()
 	{
 		posTab = new List< Transform>(GetComponentsInChildren<Transform>());
 		followerNeeded = transform.childCount - 1;
-		// if (zoneType == ZoneType.FollowerSpawn)
-			// StartCoroutine(SpawnProtect());
+
+		Debug.Log("les chiffer " + posTab.Count + "ledezim" + followerNeeded);
+		if (zoneType == ZoneType.FollowerSpawn)
+			StartCoroutine(Spawn());
 	}
 
 	public Vector3 NextFreePos()
@@ -54,6 +59,12 @@ public class ZoneScript : MonoBehaviour
 	}
 
 	void Update () {
-		// if (zoneType == ZoneType.FollowerSpawn)
+		
+	// switch (zoneType)
+	// {
+	// 	case ZoneType.FollowerSpawn :
+	// 		break;
+		
+	// }
 	}
 }
