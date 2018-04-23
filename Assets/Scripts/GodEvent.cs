@@ -27,6 +27,7 @@ public class GodEvent : MonoBehaviour
 		{
 			if (farmEvent != null)
 			{
+				Debug.Log("FARRMM");
 				var targetZone = FindNearestZone();
 				farmEvent(transform.position, targetZone);
 			}

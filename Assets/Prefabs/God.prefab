@@ -108,7 +108,6 @@ GameObject:
   - component: {fileID: 4575148332912818}
   - component: {fileID: 33082371428329526}
   - component: {fileID: 23103294642046296}
-  - component: {fileID: 135550009869661878}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -347,8 +346,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4976914907857168}
-  - component: {fileID: 114019468429067346}
   - component: {fileID: 195167964203164666}
+  - component: {fileID: 114092833860239464}
   m_Layer: 0
   m_Name: God
   m_TagString: Untagged
@@ -786,7 +785,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1323635074245530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1039,7 +1038,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186008992695850}
   m_Enabled: 1
---- !u!114 &114019468429067346
+--- !u!114 &114092833860239464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1047,10 +1046,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1799481084109518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7628af979a03487dab28e3f576c59f4, type: 3}
+  m_Script: {fileID: 11500000, guid: f1678982e1fe24296b63275fbd64ea1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 1
+  head: {fileID: 4470479143935546}
 --- !u!114 &114158376985945226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivityX: 5
-  sensitivityY: -5
+  sensitivityY: 5
   minimumX: -360
   maximumX: 360
   minimumY: -60
@@ -1534,18 +1534,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186008992695850}
   m_Enabled: 1
---- !u!135 &135550009869661878
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1323635074245530}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195167964203164666
 NavMeshAgent:
   m_ObjectHideFlags: 1
