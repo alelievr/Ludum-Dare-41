@@ -118,12 +118,8 @@ public class FollowerController : MonoBehaviour
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
-<<<<<<< HEAD
-			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
-=======
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 			GodEvent.listAllFollowerFollowing.Add(this);
->>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 		}
 	}
 
@@ -312,8 +308,6 @@ public class FollowerController : MonoBehaviour
 
 		StartCoroutine("UpdateFarming");
 	}
-
-<<<<<<< HEAD
 	void StartSpawning()
 	{
 		Debug.Log("start Spawn");
@@ -329,20 +323,8 @@ public class FollowerController : MonoBehaviour
 		// StartCoroutine("UpdateSpawning");
 	}
 
-	// IEnumerator UpdateFarming()
-	// {
-	// 	float t = Time.time;
-
-	// 	while (Time.time - t < farmDuration)
-	// 	{
-	// 		farmProgress = ((Time.time - t) / farmDuration);
-	// 		yield return new WaitForEndOfFrame();
-	// 	}
-	// 	farmProgress = 1;
-=======
 	IEnumerator UpdateFarming()
 	{
->>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 
 		while (true)
 		{

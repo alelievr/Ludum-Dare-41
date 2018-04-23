@@ -68,7 +68,6 @@ public class GodEvent : MonoBehaviour
 				stayEvent(transform.position);
 			}
 		}
-<<<<<<< HEAD
 		if (Input.GetKeyDown(KeyCode.V))
 		{
 			if (spawnEvent != null)
@@ -76,7 +75,8 @@ public class GodEvent : MonoBehaviour
 				Debug.Log("SPAWN HERE");
 				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
 				spawnEvent(GetComponent<GodEvent>(), targetZone);
-=======
+			}
+		}
 		if (Input.GetMouseButtonDown(0))
 		{
 			RaycastHit hit;
@@ -91,7 +91,6 @@ public class GodEvent : MonoBehaviour
 						i++;
 				}
 				Debug.Log(listAllFollowerFollowing.Count);
->>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.C))
