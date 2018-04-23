@@ -20,6 +20,7 @@ public class ZoneScript : MonoBehaviour
 	int i = 1;
 
 	//public List< Transform > posTab = new List< Transform >();
+	[HideInInspector]
 	public List< Transform > posTab;
 
 	private void Start()

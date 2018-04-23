@@ -8,6 +8,7 @@ using System;
 public enum FollowerState
 {
 	Idle,
+	FollowGod,
 	MovingToFarm,
 	MovingToAttack,
 	Farming,
@@ -33,6 +34,7 @@ public class FollowerController : MonoBehaviour
 	[HideInInspector]
 	public float	farmProgress;
 
+
 	[Space, Header("GUI")]
 	public float	progressBarYOffset = 1;
 
@@ -52,17 +54,21 @@ public class FollowerController : MonoBehaviour
 	Camera			mainCam;
 
 	Vector3 oldDestination;
+<<<<<<< HEAD
 	FollowerState oldstate;
 
 	public bool		badguys = false;
+=======
+	Transform		godTrans;
+>>>>>>> a3534a531f1e149f6adec3f90e5b5066fca3519d
 
 
 	private void Start()
 	{
 		agent = GetComponent< NavMeshAgent >();
 		worldCanva = GameObject.Find("WorldCanva");
-
 		mainCam = Camera.main;
+
 
 		if (worldCanva != null)
 		{
@@ -78,8 +84,32 @@ public class FollowerController : MonoBehaviour
 			GodEvent.listAllFollower.Add(this);
 		else
 		{
-			GodEvent.farmEvent += FarmCallback;
 			GodEvent.listAllBadGuys.Add(this);
+			GodEvent.farmEvent += FarmCallback;
+			GodEvent.followEvent += FollowGodCallBack;
+			GodEvent.stayEvent += StayCallBack;
+		}
+	}
+
+	void	FollowGodCallBack(Transform gt)
+	{
+		if (state == FollowerState.Idle || 	state == FollowerState.MovingToAttack || state == FollowerState.Attacking)
+		{
+			Debug.Log("FOLLOW THE GOD");
+			state = FollowerState.FollowGod;
+			godTrans = gt;
+			agent.SetDestination(godTrans.position);
+			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+		}
+	}
+
+	void	StayCallBack()
+	{
+		if (state == FollowerState.FollowGod)
+		{
+			Debug.Log("I STAY HERE");
+			state = FollowerState.Idle;
+			agent.SetDestination(transform.position);
 		}
 	}
 
@@ -87,7 +117,7 @@ public class FollowerController : MonoBehaviour
 	{
 		zonesc = zone;
 
-		if (state == FollowerState.Idle && zonesc.EmptySlot())
+		if ((state == FollowerState.Idle || state == FollowerState.FollowGod) && zonesc.EmptySlot())
 		{
 			Debug.Log("JE SUIS FERMIER");
 			dir = new Vector3(godPos.x - transform.position.x, godPos.y - transform.position.y, godPos.z - transform.position.z);
@@ -163,6 +193,9 @@ public class FollowerController : MonoBehaviour
 				if (agent.remainingDistance < attackRange)
 					attackcible();
 				break ;
+			case FollowerState.FollowGod:
+				agent.SetDestination(godTrans.position);
+				break;
 		}
 	}
 
