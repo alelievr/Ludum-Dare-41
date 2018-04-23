@@ -2638,6 +2638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soldatmat: {fileID: 2100000, guid: d95b03ac345dd4baf9027a94bdc03e8c, type: 2}
+  godEvent: {fileID: 1980276057}
 --- !u!4 &1696917350 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
@@ -3202,6 +3203,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1980276057 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114989743607763710, guid: 311723099fe004135b2e6fecab34ff6f,
+    type: 2}
+  m_PrefabInternal: {fileID: 392960186}
+  m_Script: {fileID: 11500000, guid: cb94e0c17d16b4dfa838ccbf6f41c076, type: 3}
 --- !u!1001 &2012139869
 Prefab:
   m_ObjectHideFlags: 0

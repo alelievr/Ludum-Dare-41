@@ -69,6 +69,7 @@ public class FollowerController : MonoBehaviour
 		agent = GetComponent< NavMeshAgent >();
 		worldCanva = GameObject.Find("WorldCanva");
 		mainCam = Camera.main;
+		env = mainCam.GetComponent<Utils>();
 
 
 		if (worldCanva != null)
@@ -117,8 +118,11 @@ public class FollowerController : MonoBehaviour
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
+<<<<<<< HEAD
 			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 
+=======
+>>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 			GodEvent.listAllFollowerFollowing.Add(this);
 		}
@@ -188,10 +192,12 @@ public class FollowerController : MonoBehaviour
 			searchCibleCallback(GodEvent.god.gameObject);
 	}
 
-	void upgradetosoldat()
+	public void upgradetosoldat()
 	{
 		issoldat = true;
-		GetComponent<MeshRenderer>().materials[0] = env.soldatmat;
+		if (GetComponent<MeshRenderer>() == null)
+			Debug.Log("dafuq");
+		GetComponent<MeshRenderer>().material = env.soldatmat;
 	}
 
 
@@ -309,8 +315,11 @@ public class FollowerController : MonoBehaviour
 
 		StartCoroutine("UpdateFarming");
 	}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 	void StartSpawning()
 	{
 		Debug.Log("start Spawn");
@@ -326,6 +335,7 @@ public class FollowerController : MonoBehaviour
 		// StartCoroutine("UpdateSpawning");
 	}
 
+<<<<<<< HEAD
 	// IEnumerator UpdateFarming()
 	// {
 	// 	float t = Time.time;
@@ -337,13 +347,15 @@ public class FollowerController : MonoBehaviour
 	// 	}
 	// 	farmProgress = 1;
 
+=======
+>>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 	IEnumerator UpdateFarming()
 	{
 
 		while (true)
 		{
 			yield return new WaitForSeconds(10);
-			GodEvent.money += GodEvent.moneygainby5s;
+			env.godEvent.money += env.godEvent.moneygainby5s;
 		}
 	}
 
