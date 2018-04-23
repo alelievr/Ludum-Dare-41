@@ -16,14 +16,22 @@ public class GodEvent : MonoBehaviour
 	public delegate void StayDelegate(Vector3 pos);
 	public static event StayDelegate stayEvent;
 
+	public delegate void SpawnDelegate(GodEvent godEvent, ZoneScript zoneSc);
+	public static event SpawnDelegate spawnEvent;
+	public GameObject spawnZone;
+
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
+	public  ParticleSystem pscharge;
 
 	ZoneScript[]		availableZones;
 
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
+	[HideInInspector] public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
 	[HideInInspector] public static GodController god;
+
+
 
 	void Start () {
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
@@ -57,8 +65,36 @@ public class GodEvent : MonoBehaviour
 				stayEvent(transform.position);
 			}
 		}
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
+			{
+				Debug.Log("SPAWN HERE");
+				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
+				spawnEvent(GetComponent<GodEvent>(), targetZone);
+			}
+		}
+		if (Input.GetMouseButtonDown(0))
+		{
+			// RaycastHit hit;
+			// if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+			// {
+				RaycastHit hit;
+				if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+				{
+					GameObject.Instantiate(pscharge, hit.point, Quaternion.identity);
+					Debug.Log(listAllFollowerFollowing.Count);
+					int i = 0;
+					while(i < listAllFollowerFollowing.Count)
+					{
+						if (listAllFollowerFollowing[i].ChargeCallback(hit.point) == false)
+									i++;
+					}
+					Debug.Log(listAllFollowerFollowing.Count);
+				}
+				// Debug.Log(listAllFollowerFollowing.Count);
+		}
 	}
-
 	ZoneScript FindNearestZone()
 	{
 		Vector3 pos = transform.position;
@@ -69,4 +105,17 @@ public class GodEvent : MonoBehaviour
     //     Gizmos.color = Color.yellow;
     //     Gizmos.DrawSphere(transform.position, 50f);
     // }
+
+
+ 	void OnGUI()
+    {
+        // Camera  c = Camera.main;
+        // Event   e = Event.current;
+
+        // Get the mouse position from Event.
+        // Note that the y position from Event is inverted.
+
+        GUILayout.BeginArea(new Rect(20, 20, 250, 120));
+        GUILayout.EndArea();
+    }
 }

@@ -10,9 +10,12 @@ public enum FollowerState
 	Idle,
 	FollowGod,
 	MovingToFarm,
+	MovingToSpawn,
 	MovingToAttack,
+	Spawning,
 	Farming,
 	Attacking,
+	Charging,
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -58,6 +61,7 @@ public class FollowerController : MonoBehaviour
 
 	public bool		badguys = false;
 	Transform		godTrans;
+	Utils			env;
 
 
 	private void Start()
@@ -65,6 +69,7 @@ public class FollowerController : MonoBehaviour
 		agent = GetComponent< NavMeshAgent >();
 		worldCanva = GameObject.Find("WorldCanva");
 		mainCam = Camera.main;
+		env = mainCam.GetComponent<Utils>();
 
 
 		if (worldCanva != null)
@@ -82,6 +87,7 @@ public class FollowerController : MonoBehaviour
 			GodEvent.listAllFollower.Add(this);
 			GodEvent.farmEvent += FarmCallback;
 			GodEvent.followEvent += FollowGodCallBack;
+			GodEvent.spawnEvent += SpawnCallBack;
 			GodEvent.stayEvent += StayCallBack;
 		}
 		else
@@ -90,27 +96,45 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
+	public bool ChargeCallback(Vector3 pos)
+	{
+		if (issoldat)
+		{
+			agent.SetDestination(pos);
+			state = FollowerState.Charging;
+			GodEvent.listAllFollowerFollowing.Remove(this);
+			return true;
+		}
+		return false;
+	}
+
 	void	FollowGodCallBack(Transform gt)
 	{
 		float dist = Vector3.Distance(transform.position, gt.position);
+
 		if ((state == FollowerState.Idle || state == FollowerState.MovingToAttack || state == FollowerState.Attacking) && dist < shoutdist)
 		{
 			Debug.Log("FOLLOW THE GOD");
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
+			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+			GodEvent.listAllFollowerFollowing.Add(this);
 		}
 	}
 
 	void	StayCallBack(Vector3 pos)
 	{
 		float dist = Vector3.Distance(transform.position, pos);
+
 		if (state == FollowerState.FollowGod && dist < shoutdist)
 		{
 			Debug.Log("I STAY HERE");
 			state = FollowerState.Idle;
 			agent.SetDestination(transform.position);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 	}
 
@@ -126,6 +150,7 @@ public class FollowerController : MonoBehaviour
 				float dist = dir.magnitude;
 
 				state = FollowerState.MovingToFarm;
+				GodEvent.listAllFollowerFollowing.Remove(this);
 				agent.SetDestination(zonesc.NextFreePos());
 			}
 		}
@@ -141,6 +166,19 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
+	void	SpawnCallBack(GodEvent godEvent, ZoneScript zone)
+	{
+		//	Debug.Log("JE SUIS  PRESK SPAWN");
+		zonesc = zone;
+		if (state == FollowerState.FollowGod && zonesc.EmptySlot())
+		{
+			Debug.Log("JE SUIS SPAWN");
+			state = FollowerState.MovingToSpawn;
+			GodEvent.listAllFollowerFollowing.Remove(this);
+			agent.SetDestination(zonesc.NextFreePos());
+		}
+	}
+
 	void searchCible()
 	{
 		oldstate = state;
@@ -150,6 +188,15 @@ public class FollowerController : MonoBehaviour
 		if (badguys)
 			searchCibleCallback(GodEvent.god.gameObject);
 	}
+
+	public void upgradetosoldat()
+	{
+		issoldat = true;
+		if (GetComponent<MeshRenderer>() == null)
+			Debug.Log("dafuq");
+		GetComponent<MeshRenderer>().material = env.soldatmat;
+	}
+
 
 	float timesincelastime = 0;
 	// Update is called once per frame
@@ -171,7 +218,10 @@ public class FollowerController : MonoBehaviour
 				if (agent.remainingDistance < agent.stoppingDistance && Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance)
 					StartFarming();
 				break ;
-
+			case FollowerState.Charging:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					state = FollowerState.Idle;
+				break ;
 			case FollowerState.MovingToAttack:
 			if (!Cible)
 			{
@@ -185,6 +235,10 @@ public class FollowerController : MonoBehaviour
 			case FollowerState.FollowGod:
 				agent.SetDestination(godTrans.position);
 				break;
+			case FollowerState.MovingToSpawn:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					StartSpawning();
+				break ;
 		}
 	}
 
@@ -242,12 +296,26 @@ public class FollowerController : MonoBehaviour
 		StartCoroutine("UpdateFarming");
 	}
 
+	void StartSpawning()
+	{
+		Debug.Log("start Spawn");
+		if (!zonesc)
+		{
+			state = FollowerState.Idle;
+			FollowGodCallBack(godTrans);
+		}
+
+		state = FollowerState.Spawning;
+
+		StartCoroutine("UpdateSpawning");
+	}
+
+
 	IEnumerator UpdateFarming()
 	{
 		while (true)
 		{
 			float t = Time.time;
-
 			farmProgress = 0;
 			while (Time.time - t < farmDuration)
 			{
@@ -289,7 +357,10 @@ public class FollowerController : MonoBehaviour
 		else
 		{
 			GodEvent.farmEvent -= FarmCallback;
+			GodEvent.followEvent -= FollowGodCallBack;
+			GodEvent.stayEvent -= StayCallBack;
 			GodEvent.listAllFollower.Remove(this);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 		GameObject.Destroy(gameObject);
 	}
