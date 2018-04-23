@@ -33,7 +33,7 @@ public class GodController : MonoBehaviour
 
 		agent.Move(input.normalized * speed);
 
-		GameManager.instance.UpdateHP(life, maxLife);
+		// GameManager.instance.UpdateHP(life, maxLife); a remmettre
 
 		// transform.eulerAngles = new Vector3(transform.eulerAngles.x, head.eulerAngles.y, transform.eulerAngles.z);
 	}
