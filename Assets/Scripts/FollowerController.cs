@@ -67,6 +67,7 @@ public class FollowerController : MonoBehaviour
 		agent = GetComponent< NavMeshAgent >();
 		worldCanva = GameObject.Find("WorldCanva");
 		mainCam = Camera.main;
+		env = mainCam.GetComponent<Utils>();
 
 
 		if (worldCanva != null)
@@ -169,10 +170,12 @@ public class FollowerController : MonoBehaviour
 			searchCibleCallback(GodEvent.god.gameObject);
 	}
 
-	void upgradetosoldat()
+	public void upgradetosoldat()
 	{
 		issoldat = true;
-		GetComponent<MeshRenderer>().materials[0] = env.soldatmat;
+		if (GetComponent<MeshRenderer>() == null)
+			Debug.Log("dafuq");
+		GetComponent<MeshRenderer>().material = env.soldatmat;
 	}
 
 
@@ -293,7 +296,7 @@ public class FollowerController : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(10);
-			GodEvent.money += GodEvent.moneygainby5s;
+			env.godEvent.money += env.godEvent.moneygainby5s;
 		}
 	}
 
