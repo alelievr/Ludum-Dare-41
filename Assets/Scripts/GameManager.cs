@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-	int		crystalCount;
+	int		crystalCount = 0;
 
 	public static GameManager instance;
 

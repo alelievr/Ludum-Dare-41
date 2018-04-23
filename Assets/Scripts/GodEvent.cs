@@ -6,6 +6,9 @@ using System.Linq;
 public class GodEvent : MonoBehaviour
 {
 	public static readonly float		farmEventMaxDistance = 50f;
+
+	public int		spawnMinionBuildingCost = 100;
+	public int		armyBuildingCost = 150;
 	
 	// Use this for initialization
 	public delegate void FarmDelegate(Vector3 pos, ZoneScript zone);
@@ -78,37 +81,51 @@ public class GodEvent : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.V))
 		{
-			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
+			if (spawnEvent != null && GodEvent.listAllFollowerFollowing.Count >= 10)
 			{
-				GUINotification.instance.AddNotification("Build spawner here !");
-				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponentInChildren<ZoneScript>();
-				spawnEvent(GetComponent<GodEvent>(), targetZone);
+			 	if (GameManager.instance.ConsumeCrystal(spawnMinionBuildingCost))
+				{
+					GUINotification.instance.AddNotification("Build spawner here !");
+					ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponentInChildren<ZoneScript>();
+					spawnEvent(GetComponent<GodEvent>(), targetZone);
+				}
+				else
+					GUINotification.instance.AddNotification("Not enough crystals !");
 			}
+			else
+				GUINotification.instance.AddNotification("Not enough minions !");
 		}
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
 			{
-				ZoneScript targetZone = Instantiate(ArmoryZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
-				AllArmory.Add(targetZone);
-				int i = 0;
-				int j = 0;
-				while(i < listAllFollowerFollowing.Count && j < 30)
+				if (GameManager.instance.ConsumeCrystal(armyBuildingCost))
 				{
-					ZoneScript zonesc = targetZone;
-					if (GodEvent.listAllFollowerFollowing[i].issoldat == false)
+					ZoneScript targetZone = Instantiate(ArmoryZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
+					AllArmory.Add(targetZone);
+					int i = 0;
+					int j = 0;
+					while(i < listAllFollowerFollowing.Count && j < 30)
 					{
-						Debug.Log("JE SUIS ARM");
-						GodEvent.listAllFollowerFollowing[i].state = FollowerState.MovingToAttack;
-						GodEvent.listAllFollowerFollowing[i].agent.SetDestination(zonesc.NextFreePos());
-						GodEvent.listAllFollowerFollowing.Remove(GodEvent.listAllFollowerFollowing[i]);
-						j++;
+						ZoneScript zonesc = targetZone;
+						if (GodEvent.listAllFollowerFollowing[i].issoldat == false)
+						{
+							Debug.Log("JE SUIS ARM");
+							GodEvent.listAllFollowerFollowing[i].state = FollowerState.MovingToAttack;
+							GodEvent.listAllFollowerFollowing[i].agent.SetDestination(zonesc.NextFreePos());
+							GodEvent.listAllFollowerFollowing.Remove(GodEvent.listAllFollowerFollowing[i]);
+							j++;
+						}
+						else
+							i++;
 					}
-					else
-						i++;
 				}
+				else
+					GUINotification.instance.AddNotification("Not enough crystals !");
 			}
+			else
+				GUINotification.instance.AddNotification("Not enough minions !");
 		}
 		
 		if (Input.GetMouseButtonDown(0))
