@@ -63,6 +63,7 @@ public class FollowerController : MonoBehaviour
 	FollowerState oldstate;
 
 	public bool		badguys = false;
+	public bool		badguyfocusgod = false;
 	Transform		godTrans;
 	Utils			env;
 
