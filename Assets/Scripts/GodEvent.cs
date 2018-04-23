@@ -15,6 +15,8 @@ public class GodEvent : MonoBehaviour
 
 	ZoneScript[]		availableZones;
 
+	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
+
 	void Start () {
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
 	}
@@ -23,7 +25,7 @@ public class GodEvent : MonoBehaviour
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.F))
 		{
-			if (farmEvent != null)		
+			if (farmEvent != null)
 			{
 				var targetZone = FindNearestZone();
 				farmEvent(transform.position, targetZone);
@@ -37,4 +39,3 @@ public class GodEvent : MonoBehaviour
 		return availableZones.OrderBy(z => (z.transform.position - pos).sqrMagnitude).First();
 	}
 }
-  

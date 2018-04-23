@@ -20,6 +20,10 @@ public class FollowerController : MonoBehaviour
 	[Header("Attack")]
 	public float	shoutdist = 50f;
 	public float	distanceagro = 2;
+	public float	attackRange = 3;
+	public float	attacktime = 1;
+	public bool		issoldat = false;
+	public float	life = 2;
 
 	[Space, Header("Farming")]
 	public float	farmDuration = 5;
@@ -37,7 +41,6 @@ public class FollowerController : MonoBehaviour
 	Vector3			dir;
 	NavMeshAgent	agent;
 	FollowerController fc = null;
-	bool			issoldat = false;
 	GameObject		Cible = null;
 	ZoneScript		zonesc;
 	bool 			gotapos = false;
@@ -47,6 +50,9 @@ public class FollowerController : MonoBehaviour
 	Scrollbar		slider;
 
 	Camera			mainCam;
+
+	Vector3 oldDestination;
+
 
 	private void Start()
 	{
@@ -66,7 +72,7 @@ public class FollowerController : MonoBehaviour
 	private void OnEnable()
 	{
 		GodEvent.farmEvent += FarmCallback;
-		GodEvent.cibleEvent += searchCibleCallback;
+		GodEvent.listAllFollower.Add(this);
 	}
 
 	void	FarmCallback(Vector3 godPos, ZoneScript zone)
@@ -85,9 +91,23 @@ public class FollowerController : MonoBehaviour
 
 	void searchCibleCallback(FollowerController fc)
 	{
-		if (fc.GetInstanceID() != this.GetInstanceID() && Vector3.Distance(fc.transform.position, transform.position) < distanceagro)
+		Debug.Log("dsad3");
+		if (fc.GetInstanceID() != this.GetInstanceID() && Vector3.Distance(fc.transform.position, transform.position) < distanceagro
+			&& (Cible == null || Vector3.Distance(Cible.transform.position, transform.position) >= Vector3.Distance(fc.transform.position, transform.position)))
 		{
-			fc.Cible = this.gameObject;
+			Debug.Log("dsad4");
+			Cible = fc.gameObject;
+			state = FollowerState.MovingToAttack;
+			oldDestination = agent.destination;
+		}
+	}
+
+	void searchCible()
+	{
+		Debug.Log("dsad");
+		foreach(FollowerController fc in GodEvent.listAllFollower)
+		{
+			searchCibleCallback(fc);
 		}
 	}
 
@@ -104,12 +124,16 @@ public class FollowerController : MonoBehaviour
 		// 	agent.SetDestination(zonesc.NextFreePos());
 		// 	gotapos = true;
 		// }
+
+		// parti soldat
 		
+		if (!issoldat)
+			return ;
 		timesincelastime += Time.deltaTime;
-		if (issoldat && timesincelastime > 2)
+		if (timesincelastime > 2)
 		{
 			timesincelastime = 0;
-			searchCibleCallback(this);
+			searchCible();
 		}
 	}
 
@@ -121,7 +145,57 @@ public class FollowerController : MonoBehaviour
 				if (agent.remainingDistance < agent.stoppingDistance)
 					StartFarming();
 				break ;
+
+			case FollowerState.MovingToAttack:
+			agent.SetDestination(Cible.transform.position);
+				if (agent.remainingDistance < attackRange)
+					attackcible();
+				break ;
 		}
+	}
+
+	void attackcible()
+	{
+		Debug.Log("startAttacking!!!!!!");
+
+		state = FollowerState.Attacking;
+
+		StartCoroutine("UpdateAttacking");
+	}
+
+
+	IEnumerator UpdateAttacking()
+	{
+		float t = Time.time;
+		Vector3 dirattack = (Cible.transform.position - transform.position).normalized;
+		Vector3 originalpos = transform.position;
+		float tmp;
+		bool asattacked = false;
+
+		while ((tmp = Time.time - t) < attacktime)
+		{
+			tmp = (tmp - attacktime / 2) / (attacktime / 2);
+			tmp = (tmp < 0) ? tmp + 1 : 1 - tmp;
+			tmp *= 4;
+			if (tmp > 1)
+				tmp = 0;
+			// Debug.Log(tmp + " " + (Time.time - t));
+			if (asattacked == false &&  tmp > 0)
+			{
+				FollowerController tmp2;
+				if (tmp2 = Cible.GetComponent<FollowerController>())
+					tmp2.ouch(1);
+				asattacked = true;
+			}
+			transform.position = originalpos + dirattack * tmp;
+			yield return new WaitForEndOfFrame();
+		}
+		{
+			if (!Cible)
+				Cible = null;
+			agent.SetDestination(oldDestination);
+		}
+		state = FollowerState.Idle;
 	}
 
 	void StartFarming()
@@ -157,5 +231,21 @@ public class FollowerController : MonoBehaviour
 
 			slider.size = farmProgress;
 		}
+	}
+
+	public void ouch(float damage)
+	{
+		Debug.Log("ouch");
+		life -= damage;
+		if (life <= 0)
+			autodestruct();
+	}
+
+	void autodestruct()
+	{
+		Debug.Log("autodestruct");
+		GodEvent.farmEvent -= FarmCallback;
+		GodEvent.listAllFollower.Remove(this);
+		GameObject.Destroy(gameObject);
 	}
 }
