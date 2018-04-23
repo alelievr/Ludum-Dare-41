@@ -1512,11 +1512,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114989743607763710, guid: 311723099fe004135b2e6fecab34ff6f,
-        type: 2}
-      propertyPath: ArmoryZone
-      value: 
-      objectReference: {fileID: 1717525241}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
   m_IsPrefabParent: 0
@@ -7136,11 +7131,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45eaaf1cbdb364925a4ced8890d5f384, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1717525241 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1473758823537826, guid: 45eaaf1cbdb364925a4ced8890d5f384,
-    type: 2}
-  m_PrefabInternal: {fileID: 1717525240}
 --- !u!4 &1717880702 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
