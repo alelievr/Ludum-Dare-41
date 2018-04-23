@@ -332,9 +332,8 @@ public class FollowerController : MonoBehaviour
 			state = FollowerState.Idle;
 			FollowGodCallBack(godTrans);
 		}
-
 		state = FollowerState.Spawning;
-
+		zonesc.listFollowerInZone.Add(this);
 		// StartCoroutine("UpdateSpawning");
 	}
 
@@ -404,5 +403,11 @@ public class FollowerController : MonoBehaviour
 			timesincelastime = 0;
 			searchCible();
 		}
+	}
+
+	private void OnDestroy()
+	{
+		if (zonesc != null)
+			zonesc.listFollowerInZone.Remove(this);	
 	}
 }
