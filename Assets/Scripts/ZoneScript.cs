@@ -5,6 +5,7 @@ using UnityEngine;
 public enum ZoneType
 {
 	Farm,
+	FollowerSpawn,
 	// Attack,
 }
 
@@ -23,10 +24,20 @@ public class ZoneScript : MonoBehaviour
 	[HideInInspector]
 	public List< Transform > posTab;
 
+	IEnumerator	SpawnProtect()
+	{
+		yield return new WaitForSeconds(1f);
+		if (posTab.Count != followerCount)
+			Destroy(this.gameObject);
+		yield break;
+	}
+
 	private void Start()
 	{
 		posTab = new List< Transform>(GetComponentsInChildren<Transform>());
 		followerNeeded = transform.childCount - 1;
+		if (zoneType == ZoneType.FollowerSpawn)
+			StartCoroutine(SpawnProtect());
 	}
 
 	public Vector3 NextFreePos()
@@ -43,6 +54,6 @@ public class ZoneScript : MonoBehaviour
 	}
 
 	void Update () {
-		
+		// if (zoneType == ZoneType.FollowerSpawn)
 	}
 }

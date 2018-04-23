@@ -16,6 +16,10 @@ public class GodEvent : MonoBehaviour
 	public delegate void StayDelegate(Vector3 pos);
 	public static event StayDelegate stayEvent;
 
+	public delegate void SpawnDelegate(GodEvent godEvent, ZoneScript zoneSc);
+	public static event SpawnDelegate spawnEvent;
+	public GameObject spawnZone;
+
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
 	public  ParticleSystem pscharge;
@@ -29,6 +33,8 @@ public class GodEvent : MonoBehaviour
 	[HideInInspector] public int moneygainby5s = 20;
 	[HideInInspector] public int soldatupgradecost = 50;
 	[HideInInspector] public static GodController god;
+
+
 
 	void Start () {
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
@@ -62,6 +68,15 @@ public class GodEvent : MonoBehaviour
 				stayEvent(transform.position);
 			}
 		}
+<<<<<<< HEAD
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			if (spawnEvent != null)
+			{
+				Debug.Log("SPAWN HERE");
+				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
+				spawnEvent(GetComponent<GodEvent>(), targetZone);
+=======
 		if (Input.GetMouseButtonDown(0))
 		{
 			RaycastHit hit;
@@ -76,6 +91,7 @@ public class GodEvent : MonoBehaviour
 						i++;
 				}
 				Debug.Log(listAllFollowerFollowing.Count);
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.C))

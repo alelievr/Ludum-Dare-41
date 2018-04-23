@@ -10,7 +10,9 @@ public enum FollowerState
 	Idle,
 	FollowGod,
 	MovingToFarm,
+	MovingToSpawn,
 	MovingToAttack,
+	Spawning,
 	Farming,
 	Attacking,
 	Charging,
@@ -85,6 +87,7 @@ public class FollowerController : MonoBehaviour
 			GodEvent.listAllFollower.Add(this);
 			GodEvent.farmEvent += FarmCallback;
 			GodEvent.followEvent += FollowGodCallBack;
+			GodEvent.spawnEvent += SpawnCallBack;
 			GodEvent.stayEvent += StayCallBack;
 		}
 		else
@@ -108,22 +111,26 @@ public class FollowerController : MonoBehaviour
 	void	FollowGodCallBack(Transform gt)
 	{
 		float dist = Vector3.Distance(transform.position, gt.position);
-		Debug.Log(dist);
+		// Debug.Log(dist);
 		if ((state == FollowerState.Idle || state == FollowerState.MovingToAttack || state == FollowerState.Attacking) && dist < shoutdist)
 		{
 			Debug.Log("FOLLOW THE GOD");
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
+<<<<<<< HEAD
+			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+=======
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 			GodEvent.listAllFollowerFollowing.Add(this);
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 		}
 	}
 
 	void	StayCallBack(Vector3 pos)
 	{
 		float dist = Vector3.Distance(transform.position, pos);
-		Debug.Log(dist);
+		// Debug.Log(dist);
 		if (state == FollowerState.FollowGod && dist < shoutdist)
 		{
 			Debug.Log("I STAY HERE");
@@ -157,6 +164,18 @@ public class FollowerController : MonoBehaviour
 		{
 			Cible = fc;
 			state = FollowerState.MovingToAttack;
+		}
+	}
+
+	void	SpawnCallBack(GodEvent godEvent, ZoneScript zone)
+	{
+			Debug.Log("JE SUIS  PRESK SPAWN");
+			zonesc = zone;
+		if (state == FollowerState.FollowGod && zonesc.EmptySlot())
+		{
+			Debug.Log("JE SUIS SPAWN");
+			state = FollowerState.MovingToSpawn;
+			agent.SetDestination(zonesc.NextFreePos());
 		}
 	}
 
@@ -230,6 +249,10 @@ public class FollowerController : MonoBehaviour
 			case FollowerState.FollowGod:
 				agent.SetDestination(godTrans.position);
 				break;
+			case FollowerState.MovingToSpawn:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					StartSpawning();
+				break ;
 		}
 	}
 
@@ -290,8 +313,36 @@ public class FollowerController : MonoBehaviour
 		StartCoroutine("UpdateFarming");
 	}
 
+<<<<<<< HEAD
+	void StartSpawning()
+	{
+		Debug.Log("start Spawn");
+		if (!zonesc)
+		{
+			state = FollowerState.Idle;
+			FollowGodCallBack(godTrans);
+		}
+		// farmProgress = 0;
+
+		state = FollowerState.Spawning;
+
+		// StartCoroutine("UpdateSpawning");
+	}
+
+	// IEnumerator UpdateFarming()
+	// {
+	// 	float t = Time.time;
+
+	// 	while (Time.time - t < farmDuration)
+	// 	{
+	// 		farmProgress = ((Time.time - t) / farmDuration);
+	// 		yield return new WaitForEndOfFrame();
+	// 	}
+	// 	farmProgress = 1;
+=======
 	IEnumerator UpdateFarming()
 	{
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 
 		while (true)
 		{
