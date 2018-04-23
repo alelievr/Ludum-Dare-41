@@ -18,11 +18,13 @@ public class GodEvent : MonoBehaviour
 
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
+	public  ParticleSystem pscharge;
 
 	ZoneScript[]		availableZones;
 
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
+	public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
 	[HideInInspector] public static GodController god;
 
 	void Start () {
@@ -55,6 +57,22 @@ public class GodEvent : MonoBehaviour
 			{
 				Debug.Log("STAY HERE");
 				stayEvent(transform.position);
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+			{
+				GameObject.Instantiate(pscharge, hit.point, Quaternion.identity);
+				Debug.Log(listAllFollowerFollowing.Count);
+				int i = 0;
+				while(i < listAllFollowerFollowing.Count)
+				{
+					if (listAllFollowerFollowing[i].ChargeCallback(hit.point) == false)
+						i++;
+				}
+				Debug.Log(listAllFollowerFollowing.Count);
 			}
 		}
 	}

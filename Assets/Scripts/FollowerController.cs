@@ -13,6 +13,7 @@ public enum FollowerState
 	MovingToAttack,
 	Farming,
 	Attacking,
+	Charging,
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -90,6 +91,18 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
+	public bool ChargeCallback(Vector3 pos)
+	{
+		if (issoldat)
+		{
+			agent.SetDestination(pos);
+			state = FollowerState.Charging;
+			GodEvent.listAllFollowerFollowing.Remove(this);
+			return true;
+		}
+		return false;
+	}
+
 	void	FollowGodCallBack(Transform gt)
 	{
 		float dist = Vector3.Distance(transform.position, gt.position);
@@ -101,6 +114,7 @@ public class FollowerController : MonoBehaviour
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+			GodEvent.listAllFollowerFollowing.Add(this);
 		}
 	}
 
@@ -113,6 +127,7 @@ public class FollowerController : MonoBehaviour
 			Debug.Log("I STAY HERE");
 			state = FollowerState.Idle;
 			agent.SetDestination(transform.position);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 	}
 
@@ -187,7 +202,10 @@ public class FollowerController : MonoBehaviour
 				if (agent.remainingDistance < agent.stoppingDistance)
 					StartFarming();
 				break ;
-
+			case FollowerState.Charging:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					state = FollowerState.Idle;
+				break ;
 			case FollowerState.MovingToAttack:
 			if (!Cible)
 			{
@@ -302,7 +320,10 @@ public class FollowerController : MonoBehaviour
 		else
 		{
 			GodEvent.farmEvent -= FarmCallback;
+			GodEvent.followEvent -= FollowGodCallBack;
+			GodEvent.stayEvent -= StayCallBack;
 			GodEvent.listAllFollower.Remove(this);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 		GameObject.Destroy(gameObject);
 	}
