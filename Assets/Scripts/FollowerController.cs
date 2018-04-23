@@ -15,6 +15,7 @@ public enum FollowerState
 	Spawning,
 	Farming,
 	Attacking,
+	Charging,
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -60,6 +61,7 @@ public class FollowerController : MonoBehaviour
 
 	public bool		badguys = false;
 	Transform		godTrans;
+	Utils			env;
 
 
 	private void Start()
@@ -93,6 +95,18 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
+	public bool ChargeCallback(Vector3 pos)
+	{
+		if (issoldat)
+		{
+			agent.SetDestination(pos);
+			state = FollowerState.Charging;
+			GodEvent.listAllFollowerFollowing.Remove(this);
+			return true;
+		}
+		return false;
+	}
+
 	void	FollowGodCallBack(Transform gt)
 	{
 		float dist = Vector3.Distance(transform.position, gt.position);
@@ -103,7 +117,12 @@ public class FollowerController : MonoBehaviour
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
+<<<<<<< HEAD
 			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+=======
+			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
+			GodEvent.listAllFollowerFollowing.Add(this);
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 		}
 	}
 
@@ -116,6 +135,7 @@ public class FollowerController : MonoBehaviour
 			Debug.Log("I STAY HERE");
 			state = FollowerState.Idle;
 			agent.SetDestination(transform.position);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 	}
 
@@ -168,6 +188,13 @@ public class FollowerController : MonoBehaviour
 			searchCibleCallback(GodEvent.god.gameObject);
 	}
 
+	void upgradetosoldat()
+	{
+		issoldat = true;
+		GetComponent<MeshRenderer>().materials[0] = env.soldatmat;
+	}
+
+
 	float timesincelastime = 0;
 	// Update is called once per frame
 	void Update ()
@@ -202,7 +229,10 @@ public class FollowerController : MonoBehaviour
 				if (agent.remainingDistance < agent.stoppingDistance)
 					StartFarming();
 				break ;
-
+			case FollowerState.Charging:
+				if (agent.remainingDistance < agent.stoppingDistance)
+					state = FollowerState.Idle;
+				break ;
 			case FollowerState.MovingToAttack:
 			if (!Cible)
 			{
@@ -277,9 +307,10 @@ public class FollowerController : MonoBehaviour
 
 		state = FollowerState.Farming;
 
-		// StartCoroutine("UpdateFarming");
+		StartCoroutine("UpdateFarming");
 	}
 
+<<<<<<< HEAD
 	void StartSpawning()
 	{
 		Debug.Log("start Spawn");
@@ -305,9 +336,17 @@ public class FollowerController : MonoBehaviour
 	// 		yield return new WaitForEndOfFrame();
 	// 	}
 	// 	farmProgress = 1;
+=======
+	IEnumerator UpdateFarming()
+	{
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 
-	// 	state = FollowerState.Idle;
-	// }
+		while (true)
+		{
+			yield return new WaitForSeconds(10);
+			GodEvent.money += GodEvent.moneygainby5s;
+		}
+	}
 
 	void UpdateGUI()
 	{
@@ -336,7 +375,10 @@ public class FollowerController : MonoBehaviour
 		else
 		{
 			GodEvent.farmEvent -= FarmCallback;
+			GodEvent.followEvent -= FollowGodCallBack;
+			GodEvent.stayEvent -= StayCallBack;
 			GodEvent.listAllFollower.Remove(this);
+			GodEvent.listAllFollowerFollowing.Remove(this);
 		}
 		GameObject.Destroy(gameObject);
 	}

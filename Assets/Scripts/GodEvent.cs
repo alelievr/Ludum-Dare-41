@@ -22,11 +22,15 @@ public class GodEvent : MonoBehaviour
 
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
+	public  ParticleSystem pscharge;
 
 	ZoneScript[]		availableZones;
 
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
+	[HideInInspector] public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
+	[HideInInspector] public static int money = 200;
+	[HideInInspector] public static int moneygainby5s = 20;
 	[HideInInspector] public static GodController god;
 
 
@@ -63,6 +67,7 @@ public class GodEvent : MonoBehaviour
 				stayEvent(transform.position);
 			}
 		}
+<<<<<<< HEAD
 		if (Input.GetKeyDown(KeyCode.V))
 		{
 			if (spawnEvent != null)
@@ -70,6 +75,22 @@ public class GodEvent : MonoBehaviour
 				Debug.Log("SPAWN HERE");
 				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
 				spawnEvent(GetComponent<GodEvent>(), targetZone);
+=======
+		if (Input.GetMouseButtonDown(0))
+		{
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+			{
+				GameObject.Instantiate(pscharge, hit.point, Quaternion.identity);
+				Debug.Log(listAllFollowerFollowing.Count);
+				int i = 0;
+				while(i < listAllFollowerFollowing.Count)
+				{
+					if (listAllFollowerFollowing[i].ChargeCallback(hit.point) == false)
+						i++;
+				}
+				Debug.Log(listAllFollowerFollowing.Count);
+>>>>>>> ba8338dad9e177ca8883f878a3503122fb84b020
 			}
 		}
 	}
