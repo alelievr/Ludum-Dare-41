@@ -10,6 +10,12 @@ public class GodEvent : MonoBehaviour
 	public delegate void FarmDelegate(Vector3 pos, ZoneScript zone);
 	public static event FarmDelegate farmEvent;
 
+	public delegate void FollowGodDelegate(Transform godTrans);
+	public static event FollowGodDelegate followEvent;
+
+	public delegate void StayDelegate();
+	public static event StayDelegate stayEvent;
+
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
 
@@ -30,6 +36,22 @@ public class GodEvent : MonoBehaviour
 				Debug.Log("FARRMM");
 				var targetZone = FindNearestZone();
 				farmEvent(transform.position, targetZone);
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (followEvent != null)
+			{
+				Debug.Log("COME TO MEEEE");
+				followEvent(transform);
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			if (stayEvent != null)
+			{
+				Debug.Log("STAY HERE");
+				stayEvent();
 			}
 		}
 	}
