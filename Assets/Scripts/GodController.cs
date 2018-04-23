@@ -27,7 +27,7 @@ public class GodController : MonoBehaviour
 		agent.Move(input.normalized * speed);
 	}
 
-	void ouch(float damage)
+	public void ouch(float damage)
 	{
 		life -= damage;
 		if (life <= 0)
