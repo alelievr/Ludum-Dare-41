@@ -25,6 +25,8 @@ public class GodController : MonoBehaviour
 		input = Quaternion.AngleAxis(head.eulerAngles.y, Vector3.up) * input;
 
 		agent.Move(input.normalized * speed);
+
+		// transform.eulerAngles = new Vector3(transform.eulerAngles.x, head.eulerAngles.y, transform.eulerAngles.z);
 	}
 
 	public void ouch(float damage)

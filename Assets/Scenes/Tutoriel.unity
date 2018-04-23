@@ -1083,6 +1083,16 @@ Prefab:
       propertyPath: m_Name
       value: Follower (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 114857114422056902, guid: 6ecab8a7e739642dab1640ae34205fed,
+        type: 2}
+      propertyPath: badguys
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114857114422056902, guid: 6ecab8a7e739642dab1640ae34205fed,
+        type: 2}
+      propertyPath: issoldat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   m_IsPrefabParent: 0
@@ -2472,6 +2482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   head: {fileID: 347537258}
+  life: 100
 --- !u!1001 &1671842523
 Prefab:
   m_ObjectHideFlags: 0

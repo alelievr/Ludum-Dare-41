@@ -31,7 +31,8 @@ public class CameraControler : MonoBehaviour
 		Quaternion yQuaternion = Quaternion.AngleAxis (rotationY, Vector3.left);
 		Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
 
-		transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+		transform.localRotation = originalRotation * yQuaternion;
+		GetComponentInParent<GodController>().transform.localRotation = originalRotation * xQuaternion; 
 	}
  
 	void Start ()
