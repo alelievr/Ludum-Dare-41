@@ -70,22 +70,18 @@ public class GodEvent : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.V))
 		{
-			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count > 30)
+			if (spawnEvent != null &&  GodEvent.listAllFollowerFollowing.Count >= 30)
 			{
 				Debug.Log("SPAWN HERE");
 				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
 				spawnEvent(GetComponent<GodEvent>(), targetZone);
 			}
-<<<<<<< HEAD
-			if (Input.GetMouseButtonDown(0))
-=======
 		}
 		if (Input.GetMouseButtonDown(0))
 		{
-			RaycastHit hit;
-			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
-			{
+			// RaycastHit hit;
+			// if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+			// {
 				RaycastHit hit;
 				if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
 				{
@@ -99,10 +95,7 @@ public class GodEvent : MonoBehaviour
 					}
 					Debug.Log(listAllFollowerFollowing.Count);
 				}
-<<<<<<< HEAD
-=======
-				Debug.Log(listAllFollowerFollowing.Count);
-			}
+				// Debug.Log(listAllFollowerFollowing.Count);
 		}
 		if (Input.GetKeyDown(KeyCode.C))
 		{
@@ -113,8 +106,7 @@ public class GodEvent : MonoBehaviour
 					break ;
 				money -= soldatupgradecost;
 				listAllFollowerFollowing[i].upgradetosoldat();
-				i++;
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
+				i++; 
 			}
 			
 		}
@@ -129,11 +121,9 @@ public class GodEvent : MonoBehaviour
     //     Gizmos.color = Color.yellow;
     //     Gizmos.DrawSphere(transform.position, 50f);
     // }
-<<<<<<< HEAD
-}
-=======
 
-	void OnGUI()
+
+ 	void OnGUI()
     {
         // Camera  c = Camera.main;
         // Event   e = Event.current;
@@ -147,4 +137,3 @@ public class GodEvent : MonoBehaviour
         GUILayout.EndArea();
     }
 }
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7

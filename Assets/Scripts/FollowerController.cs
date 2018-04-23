@@ -61,7 +61,7 @@ public class FollowerController : MonoBehaviour
 
 	public bool		badguys = false;
 	Transform		godTrans;
-	// Utils			env;
+	Utils			env;
 
 
 	private void Start()
@@ -118,11 +118,8 @@ public class FollowerController : MonoBehaviour
 			state = FollowerState.FollowGod;
 			godTrans = gt;
 			agent.SetDestination(godTrans.position);
-<<<<<<< HEAD
 			// Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 
-=======
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 			Debug.DrawLine(transform.position, godTrans.position, Color.red, 1f);
 			GodEvent.listAllFollowerFollowing.Add(this);
 		}
@@ -315,11 +312,7 @@ public class FollowerController : MonoBehaviour
 
 		StartCoroutine("UpdateFarming");
 	}
-<<<<<<< HEAD
 
-
-=======
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 	void StartSpawning()
 	{
 		Debug.Log("start Spawn");
@@ -335,7 +328,7 @@ public class FollowerController : MonoBehaviour
 		// StartCoroutine("UpdateSpawning");
 	}
 
-<<<<<<< HEAD
+
 	// IEnumerator UpdateFarming()
 	// {
 	// 	float t = Time.time;
@@ -347,8 +340,6 @@ public class FollowerController : MonoBehaviour
 	// 	}
 	// 	farmProgress = 1;
 
-=======
->>>>>>> cb67ac2382d7b171bd37b8fe71ffa85dca50a9f7
 	IEnumerator UpdateFarming()
 	{
 
