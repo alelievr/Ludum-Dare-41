@@ -8,9 +8,16 @@ public class GodController : MonoBehaviour
 {
 	public float		speed;
 	public Transform	head;
-	public float life = 100;
+	public float		maxLife = 100;
+	[HideInInspector]
+	public float		life;
 
 	NavMeshAgent	agent;
+
+	private void Awake()
+	{
+		life = maxLife;
+	}
 
 	void Start ()
 	{
@@ -20,11 +27,13 @@ public class GodController : MonoBehaviour
 	
 	void Update ()
 	{
-		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
+		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
 		input = Quaternion.AngleAxis(head.eulerAngles.y, Vector3.up) * input;
 
 		agent.Move(input.normalized * speed);
+
+		GameManager.instance.UpdateHP(life, maxLife);
 
 		// transform.eulerAngles = new Vector3(transform.eulerAngles.x, head.eulerAngles.y, transform.eulerAngles.z);
 	}

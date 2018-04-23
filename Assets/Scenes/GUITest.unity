@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -113,6 +113,10 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: b7e21e53bee404d18a42b78c1983128a, type: 2}
+--- !u!4 &76549560 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
+  m_PrefabInternal: {fileID: 848038744}
 --- !u!4 &77167686 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
@@ -504,6 +508,22 @@ Prefab:
       propertyPath: m_FollowOffset.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4956336756393714, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15.640001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956336756393714, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.4599915
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15.640001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.4599915
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
   m_IsPrefabParent: 0
@@ -593,6 +613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb53df23180184deeb6c3ecf714f24ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &507529994 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
+  m_PrefabInternal: {fileID: 1633356055}
 --- !u!1001 &540644368
 Prefab:
   m_ObjectHideFlags: 0
@@ -797,6 +821,10 @@ Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
     type: 2}
   m_PrefabInternal: {fileID: 1945795582}
+--- !u!4 &606009701 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
+  m_PrefabInternal: {fileID: 1544703594}
 --- !u!1001 &634220298
 Prefab:
   m_ObjectHideFlags: 0
@@ -1385,11 +1413,17 @@ MonoBehaviour:
   followerNeeded: 5
   followerCount: 0
   posTab:
+  - {fileID: 905735384}
   - {fileID: 1817698697}
+  - {fileID: 1352133906}
   - {fileID: 1045164750}
+  - {fileID: 507529994}
   - {fileID: 81239618}
+  - {fileID: 606009701}
   - {fileID: 1158020354}
+  - {fileID: 1073858254}
   - {fileID: 1224438373}
+  - {fileID: 76549560}
 --- !u!4 &905735384
 Transform:
   m_ObjectHideFlags: 0
@@ -1809,6 +1843,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98ca26b4d8e844eb28d1f987ea8392d7, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1073858254 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
+  m_PrefabInternal: {fileID: 1899377775}
 --- !u!1001 &1118183130
 Prefab:
   m_ObjectHideFlags: 0
@@ -1970,6 +2008,10 @@ Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
     type: 2}
   m_PrefabInternal: {fileID: 1359381708}
+--- !u!4 &1352133906 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
+  m_PrefabInternal: {fileID: 329687427}
 --- !u!20 &1353518157 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20579028389351942, guid: 311723099fe004135b2e6fecab34ff6f,

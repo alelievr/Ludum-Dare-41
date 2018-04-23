@@ -29,9 +29,6 @@ public class GodEvent : MonoBehaviour
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllFollowerFollowing = new List<FollowerController>();
-	[HideInInspector] public int money = 200;
-	[HideInInspector] public int moneygainby5s = 20;
-	[HideInInspector] public int soldatupgradecost = 50;
 	[HideInInspector] public static GodController god;
 
 
@@ -97,19 +94,6 @@ public class GodEvent : MonoBehaviour
 				}
 				// Debug.Log(listAllFollowerFollowing.Count);
 		}
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			int i = 0;
-			while(i < listAllFollowerFollowing.Count && i < 10)
-			{
-				if (money - soldatupgradecost < 0)
-					break ;
-				money -= soldatupgradecost;
-				listAllFollowerFollowing[i].upgradetosoldat();
-				i++; 
-			}
-			
-		}
 	}
 	ZoneScript FindNearestZone()
 	{
@@ -131,9 +115,7 @@ public class GodEvent : MonoBehaviour
         // Get the mouse position from Event.
         // Note that the y position from Event is inverted.
 
-
         GUILayout.BeginArea(new Rect(20, 20, 250, 120));
-        GUILayout.Label("money: " + money);
         GUILayout.EndArea();
     }
 }
