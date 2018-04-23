@@ -16,6 +16,10 @@ public class GodEvent : MonoBehaviour
 	public delegate void StayDelegate(Vector3 pos);
 	public static event StayDelegate stayEvent;
 
+	public delegate void SpawnDelegate(GodEvent godEvent, ZoneScript zoneSc);
+	public static event SpawnDelegate spawnEvent;
+	public GameObject spawnZone;
+
 	public delegate void searchCible(FollowerController fc);
 	public static event searchCible cibleEvent;
 
@@ -24,6 +28,8 @@ public class GodEvent : MonoBehaviour
 	[HideInInspector] public static List<FollowerController> listAllFollower = new List<FollowerController>();
 	[HideInInspector] public static List<FollowerController> listAllBadGuys = new List<FollowerController>();
 	[HideInInspector] public static GodController god;
+
+
 
 	void Start () {
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
@@ -55,6 +61,15 @@ public class GodEvent : MonoBehaviour
 			{
 				Debug.Log("STAY HERE");
 				stayEvent(transform.position);
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			if (spawnEvent != null)
+			{
+				Debug.Log("SPAWN HERE");
+				ZoneScript targetZone = Instantiate(spawnZone, transform.position, transform.rotation).GetComponent<ZoneScript>();
+				spawnEvent(GetComponent<GodEvent>(), targetZone);
 			}
 		}
 	}
