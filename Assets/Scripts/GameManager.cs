@@ -55,6 +55,11 @@ public class GameManager : MonoBehaviour
 		GUIManager.instance.UpdateCrystalCount(crystalCount);
 		GUIManager.instance.UpdateMinionCount(0);
 		GUIManager.instance.UpdateHP(0,0);
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			Scene scene = SceneManager.GetActiveScene();
+			SceneManager.LoadScene(scene.name);
+		}
 	}
 
 }

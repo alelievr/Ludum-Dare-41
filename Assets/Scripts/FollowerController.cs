@@ -101,6 +101,22 @@ public class FollowerController : MonoBehaviour
 		}
 	}
 
+	private void OnDisable()
+	{
+		if (badguys == false)
+		{
+			GodEvent.listAllFollower.Remove(this);
+			GodEvent.farmEvent -= FarmCallback;
+			GodEvent.followEvent -= FollowGodCallBack;
+			GodEvent.spawnEvent -= SpawnCallBack;
+			GodEvent.stayEvent -= StayCallBack;
+		}
+		else
+		{
+			GodEvent.listAllBadGuys.Remove(this);
+		}
+	}
+
 	Vector3 chargedest;
 
 	public bool ToArmCallback(Vector3 pos, ZoneScript zone)
