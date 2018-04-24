@@ -1023,7 +1023,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186008992695850}
   m_LocalRotation: {x: 0.000000018999318, y: -0.0000004768371, z: 1.7487431e-10, w: 1}
-  m_LocalPosition: {x: 0.0000064373016, y: 15.640001, z: 2.4600008}
+  m_LocalPosition: {x: 0, y: 15.64, z: 2.4600067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4976914907857168}
@@ -1440,7 +1440,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780426447848072}
   m_LocalRotation: {x: 0.000000018999318, y: -0.0000004768371, z: 1.7487431e-10, w: 1}
-  m_LocalPosition: {x: 0.0000064373016, y: 15.640001, z: 2.4600008}
+  m_LocalPosition: {x: 0, y: 15.64, z: 2.4600067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4153334305502272}
@@ -1453,8 +1453,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799481084109518}
-  m_LocalRotation: {x: -0, y: 0.4402622, z: -0, w: 0.8978693}
-  m_LocalPosition: {x: 199.1, y: 2.6449757, z: 330.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 148.75, y: 5.2, z: 133.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4323178805713002}
@@ -2442,6 +2442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb94e0c17d16b4dfa838ccbf6f41c076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMinionBuildingCost: 100
+  armyBuildingCost: 150
   spawnZone: {fileID: 1231923310618948, guid: c9bf777353dec4c01bdd064bc11082e9, type: 2}
   ArmoryZone: {fileID: 1473758823537826, guid: 45eaaf1cbdb364925a4ced8890d5f384, type: 2}
   pscharge: {fileID: 198247836910056804, guid: 0342ccb20fcde47e687bd3bcd8758207, type: 2}

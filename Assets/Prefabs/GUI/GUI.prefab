@@ -1391,11 +1391,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loseScreen: {fileID: 1390176048575620}
   winSceen: {fileID: 1688920137300170}
-  god: {fileID: 0}
   hpText: {fileID: 114605066490656530}
   crystalsText: {fileID: 114437426081648688}
   minionCountText: {fileID: 114715120673483594}
   hpSlider: {fileID: 114664467514959006}
+  god: {fileID: 0}
 --- !u!114 &114715120673483594
 MonoBehaviour:
   m_ObjectHideFlags: 1

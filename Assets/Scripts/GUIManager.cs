@@ -16,6 +16,10 @@ public class GUIManager : MonoBehaviour
 
 	public static GUIManager	instance;
 
+	public GameObject		god;
+	GodController gc;
+
+
 	private void Awake()
 	{
 		instance = this;
@@ -23,8 +27,9 @@ public class GUIManager : MonoBehaviour
 
 	private void Start()
 	{
+		gc = god.GetComponent<GodController>();
 		UpdateMinionCount(0);
-		UpdateHP(1, 1);
+		UpdateHP(gc.life, gc.maxLife);
 		UpdateCrystalCount(0);
 	}
 

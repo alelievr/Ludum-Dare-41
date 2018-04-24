@@ -21,7 +21,7 @@ public class ZoneScript : MonoBehaviour
 	public int followerNeeded;
 
 	public int followerCount = 0;
-	public float spawnDelay = 5f;
+	float spawnDelay = 2f;
 
 	[Space]
 	public GameObject	selectedGO;
@@ -58,8 +58,7 @@ public class ZoneScript : MonoBehaviour
 		{
 			var go = Instantiate(follower, transform.position , transform.rotation);
 			var agent = go.GetComponent< NavMeshAgent >();
-			agent.Move(go.transform.forward * 2);
-
+			agent.Move(go.transform.forward * 5);
 			yield return new WaitForSeconds(spawnDelay);
 		}
 	}
