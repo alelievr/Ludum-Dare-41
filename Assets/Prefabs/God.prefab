@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 124318651588238118}
   - component: {fileID: 81252652295728386}
   - component: {fileID: 114471912951933078}
+  - component: {fileID: 114701083516647280}
+  - component: {fileID: 114950823264728856}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1022,8 +1024,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186008992695850}
-  m_LocalRotation: {x: 0.000000018999318, y: -0.0000004768371, z: 1.7487431e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 15.64, z: 2.4600067}
+  m_LocalRotation: {x: 0.00000001899932, y: -0.00000047683716, z: 1.7487345e-10, w: 1}
+  m_LocalPosition: {x: 0.0000015795231, y: 15.64, z: 2.460001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4976914907857168}
@@ -1439,8 +1441,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780426447848072}
-  m_LocalRotation: {x: 0.000000018999318, y: -0.0000004768371, z: 1.7487431e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 15.64, z: 2.4600067}
+  m_LocalRotation: {x: 0.00000001899932, y: -0.00000047683716, z: 1.7487345e-10, w: 1}
+  m_LocalPosition: {x: 0.0000015795231, y: 15.64, z: 2.460001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4153334305502272}
@@ -1453,8 +1455,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799481084109518}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148.75, y: 5.2, z: 133.44}
+  m_LocalRotation: {x: -0, y: 0.64925593, z: -0, w: 0.76057005}
+  m_LocalPosition: {x: 25.77, y: 5.2, z: 91.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4323178805713002}
@@ -1513,7 +1515,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -2431,6 +2433,74 @@ MonoBehaviour:
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
+--- !u!114 &114701083516647280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186008992695850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c539a2ddf4c642238a2578791e8e69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldatmat: {fileID: 2100000, guid: d95b03ac345dd4baf9027a94bdc03e8c, type: 2}
+  godEvent: {fileID: 114989743607763710}
+--- !u!114 &114950823264728856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186008992695850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 4419146855106670}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  stopNaNPropagation: 1
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!114 &114989743607763710
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -270,6 +270,7 @@ public class FollowerController : MonoBehaviour
 				break ;
 			case FollowerState.FollowGod:
 				agent.SetDestination(godTrans.position);
+				agent.updatePosition = true;
 				break;
 			case FollowerState.MovingToSpawn:
 				if (agent.remainingDistance < agent.stoppingDistance)
