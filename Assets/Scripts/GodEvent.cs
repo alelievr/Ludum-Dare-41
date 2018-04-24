@@ -156,6 +156,8 @@ public class GodEvent : MonoBehaviour
 				}
 				// Debug.Log(listAllFollowerFollowing.Count);
 		}
+		if (transform.position.x > 2500f && transform.position.z > 2500f)
+			GameManager.instance.Win();
 	}
 	ZoneScript FindNearestZone(ZoneScript[] Zones)
 	{
