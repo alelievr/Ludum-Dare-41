@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class TitleScreen : MonoBehaviour
 	{
 		foreach (var key in nextSceneKeys)
 			if (Input.GetKeyDown(key))
-				SceneTransition.instance.LoadScene(nextLevelName);
+				SceneManager.LoadScene(nextLevelName);
 	}
 
 }
