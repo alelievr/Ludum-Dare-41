@@ -43,6 +43,12 @@ public class GodEvent : MonoBehaviour
 
 
 	void Start () {
+		listAllFollowerFollowing.Clear();
+		god = GetComponentInParent<GodController>();
+		// farmEvent = null;
+		// followEvent = null;
+		// stayEvent = null;
+		// spawnEvent = null;
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
 	}
 

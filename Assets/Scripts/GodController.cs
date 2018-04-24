@@ -9,7 +9,7 @@ public class GodController : MonoBehaviour
 	public float		speed;
 	public Transform	head;
 	public float		maxLife = 100;
-	[HideInInspector]
+	// [HideInInspector]
 	public float		life;
 
 	NavMeshAgent	agent;
@@ -33,6 +33,10 @@ public class GodController : MonoBehaviour
 
 		agent.Move(input.normalized * speed);
 
+		if (life <= 0)
+		{
+			GameManager.instance.Lose();
+		}
 		// GameManager.instance.UpdateHP(life, maxLife); a remmettre
 
 		// transform.eulerAngles = new Vector3(transform.eulerAngles.x, head.eulerAngles.y, transform.eulerAngles.z);

@@ -1395,6 +1395,7 @@ MonoBehaviour:
   crystalsText: {fileID: 114437426081648688}
   minionCountText: {fileID: 114715120673483594}
   hpSlider: {fileID: 114664467514959006}
+  god: {fileID: 0}
 --- !u!114 &114715120673483594
 MonoBehaviour:
   m_ObjectHideFlags: 1

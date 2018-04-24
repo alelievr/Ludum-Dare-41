@@ -16,6 +16,10 @@ public class GUIManager : MonoBehaviour
 
 	public static GUIManager	instance;
 
+	public GameObject		god;
+	GodController gc;
+
+
 	private void Awake()
 	{
 		instance = this;
@@ -23,8 +27,9 @@ public class GUIManager : MonoBehaviour
 
 	private void Start()
 	{
+		gc = god.GetComponent<GodController>();
 		UpdateMinionCount(0);
-		UpdateHP(1, 1);
+		UpdateHP(gc.life, gc.maxLife);
 		UpdateCrystalCount(0);
 	}
 
@@ -40,13 +45,14 @@ public class GUIManager : MonoBehaviour
 
 	public void UpdateMinionCount(int count)
 	{
-		minionCountText.text = "Minions: " + count;
+		Debug.Log(GodEvent.listAllFollowerFollowing.Count);
+		minionCountText.text = "Minions: " + GodEvent.listAllFollowerFollowing.Count;
 	}
 
 	public void UpdateHP(float hp, float maxHP)
 	{
-		hpText.text = "hp: " + hp;
-		hpSlider.size = hp / maxHP;
+		hpText.text = "hp: " + gc.life;
+		hpSlider.size = gc.life / gc.maxLife;
 	}
 
 	public void UpdateCrystalCount(int crystals)
