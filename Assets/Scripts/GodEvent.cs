@@ -50,6 +50,8 @@ public class GodEvent : MonoBehaviour
 		// stayEvent = null;
 		// spawnEvent = null;
 		availableZones = Resources.FindObjectsOfTypeAll< ZoneScript >();
+
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	// Update is called once per frame

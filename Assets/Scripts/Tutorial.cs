@@ -23,6 +23,6 @@ public class Tutorial : MonoBehaviour
 		}
 
 		if (win && Input.GetKeyDown(KeyCode.Return))
-			SceneManager.LoadScene("level 1");
+			SceneManager.LoadScene("level1");
 	}
 }
