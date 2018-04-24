@@ -66,6 +66,7 @@ public class FollowerController : MonoBehaviour
 	public bool		badguyfocusgod = false;
 	Transform		godTrans;
 	Utils			env;
+	[HideInInspector] public GodController	god = null;
 
 
 	private void Start()
@@ -121,7 +122,7 @@ public class FollowerController : MonoBehaviour
 	public void ChargeCallback(Vector3 pos)
 	{	
 		Debug.Log("Charge!");
-		agent.SetDestination(pos);
+		GetComponent<NavMeshAgent>().SetDestination(pos);
 		state = FollowerState.Charging;
 	}
 
@@ -238,6 +239,8 @@ public class FollowerController : MonoBehaviour
 			case FollowerState.Charging:
 				if (agent.remainingDistance < agent.stoppingDistance)
 					state = FollowerState.Idle;
+				if (badguys && badguyfocusgod)
+					agent.SetDestination(god.transform.position);
 				break ;
 			case FollowerState.MovingToAttack:
 				if (!Cible)
@@ -262,6 +265,10 @@ public class FollowerController : MonoBehaviour
 					upgradetosoldat();
 					ChargeCallback(chargedest);
 				}
+				break ;
+			case FollowerState.Idle:
+				if (badguys && badguyfocusgod)
+					ChargeCallback(god.transform.position); 
 				break ;
 		}
 		// if (badguys && badguyfocusgod == false && agent.remainingDistance < agent.stoppingDistance)
