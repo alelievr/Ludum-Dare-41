@@ -40,7 +40,8 @@ public class GUIManager : MonoBehaviour
 
 	public void UpdateMinionCount(int count)
 	{
-		minionCountText.text = "Minions: " + count;
+		Debug.Log(GodEvent.listAllFollowerFollowing.Count);
+		minionCountText.text = "Minions: " + GodEvent.listAllFollowerFollowing.Count;
 	}
 
 	public void UpdateHP(float hp, float maxHP)

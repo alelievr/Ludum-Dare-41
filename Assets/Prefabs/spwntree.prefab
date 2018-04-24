@@ -1890,7 +1890,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneType: 1
   follower: {fileID: 1214566354649562, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
-  followerNeeded: 29
+  followerNeeded: 10
   followerCount: 6
   spawnDelay: 5
   selectedGO: {fileID: 0}

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-	int		crystalCount;
+	int		crystalCount = 0;
 
 	public static GameManager instance;
 
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 	private void Update()
 	{
 		GUIManager.instance.UpdateCrystalCount(crystalCount);
+		GUIManager.instance.UpdateMinionCount(0);
 	}
 
 }

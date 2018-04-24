@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum ZoneType
 {
@@ -9,9 +10,11 @@ public enum ZoneType
 	Armory,
 }
 
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class ZoneScript : MonoBehaviour
 {
+	[HideInInspector] public List<FollowerController> listFollowerInZone = new List<FollowerController>();
+
 	public ZoneType	zoneType;
 	public GameObject	follower;
 
@@ -27,6 +30,7 @@ public class ZoneScript : MonoBehaviour
 
 	int				i = 1;
 	bool			selected;
+	bool			haveBeenFull = false;
 
 	ParticleSystem	selectedParticles;
 
@@ -39,7 +43,7 @@ public class ZoneScript : MonoBehaviour
 		posTab = new List< Transform>(GetComponentsInChildren<Transform>());
 		followerNeeded = transform.childCount - 1;
 
-		Debug.Log("les chiffer " + posTab.Count + "ledezim" + followerNeeded);
+		// Debug.Log("les chiffer " + posTab.Count + "ledezim" + followerNeeded);
 		if (zoneType == ZoneType.FollowerSpawn)
 			StartCoroutine(Spawn());
 
@@ -52,7 +56,10 @@ public class ZoneScript : MonoBehaviour
 	{
 		while (true)
 		{
-			Instantiate(follower, transform.position , transform.rotation);
+			var go = Instantiate(follower, transform.position , transform.rotation);
+			var agent = go.GetComponent< NavMeshAgent >();
+			agent.Move(go.transform.forward * 2);
+
 			yield return new WaitForSeconds(spawnDelay);
 		}
 	}
@@ -73,7 +80,10 @@ public class ZoneScript : MonoBehaviour
 	void Update ()
 	{
 		selected = Vector3.Distance(godTransform.position, transform.position) < GodEvent.farmEventMaxDistance;
-
+		if (listFollowerInZone.Count > 25f)
+		{
+			haveBeenFull = true;
+		}
 		if (selectedGO != null)
 			selectedGO.SetActive(selected);
 
@@ -82,5 +92,7 @@ public class ZoneScript : MonoBehaviour
 			var emi = selectedParticles.emission;
 			emi.enabled = selected;
 		}
+		if (zoneType == ZoneType.FollowerSpawn && listFollowerInZone.Count < 5 && haveBeenFull == true)
+			Destroy(this.gameObject);
 	}
 }
