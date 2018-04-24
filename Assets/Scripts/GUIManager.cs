@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GUIManager : MonoBehaviour
 {
 	public GameObject	loseScreen;
-	public GameObject	winSceen;
+	public GameObject	winScreen;
 
 	[Space]
 	public Text			hpText;
@@ -35,7 +35,7 @@ public class GUIManager : MonoBehaviour
 
 	public void ShowWinScreen()
 	{
-		loseScreen.SetActive(true);
+		winScreen.SetActive(true);
 	}
 
 	public void ShowLoseScreen()

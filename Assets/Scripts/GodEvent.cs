@@ -96,10 +96,10 @@ public class GodEvent : MonoBehaviour
 					spawnEvent(GetComponent<GodEvent>(), targetZone);
 				}
 				else
-					GUINotification.instance.AddNotification("Not enough crystals !");
+					GUINotification.instance.AddNotification("Not enough crystals !", NotificationType.Error);
 			}
 			else
-				GUINotification.instance.AddNotification("Not enough minions !");
+				GUINotification.instance.AddNotification("Not enough minions !", NotificationType.Error);
 		}
 
 		if (Input.GetKeyDown(KeyCode.C))
@@ -128,10 +128,10 @@ public class GodEvent : MonoBehaviour
 					}
 				}
 				else
-					GUINotification.instance.AddNotification("Not enough crystals !");
+					GUINotification.instance.AddNotification("Not enough crystals !", NotificationType.Error);
 			}
 			else
-				GUINotification.instance.AddNotification("Not enough minions !");
+				GUINotification.instance.AddNotification("Not enough minions !", NotificationType.Error);
 		}
 		
 		if (Input.GetMouseButtonDown(0))
@@ -156,9 +156,13 @@ public class GodEvent : MonoBehaviour
 				}
 				// Debug.Log(listAllFollowerFollowing.Count);
 		}
-		if (transform.position.x > 2500f && transform.position.z > 2500f)
+		if (transform.position.x > 2500f && transform.position.z > 2500f){
+
+			Debug.Log("EWRRERERERWWWIN");
+		
 			GameManager.instance.Win();
-	}
+		}
+}
 	ZoneScript FindNearestZone(ZoneScript[] Zones)
 	{
 		Vector3 pos = transform.position;
