@@ -51,8 +51,8 @@ public class GUIManager : MonoBehaviour
 
 	public void UpdateHP(float hp, float maxHP)
 	{
-		hpText.text = "hp: " + hp;
-		hpSlider.size = hp / maxHP;
+		hpText.text = "hp: " + gc.life;
+		hpSlider.size = gc.life / gc.maxLife;
 	}
 
 	public void UpdateCrystalCount(int crystals)

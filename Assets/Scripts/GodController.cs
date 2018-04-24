@@ -9,7 +9,7 @@ public class GodController : MonoBehaviour
 	public float		speed;
 	public Transform	head;
 	public float		maxLife = 100;
-	[HideInInspector]
+	// [HideInInspector]
 	public float		life;
 
 	NavMeshAgent	agent;
