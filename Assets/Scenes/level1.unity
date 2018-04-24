@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -317,7 +317,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 81590706}
@@ -1341,7 +1340,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 257072361}
@@ -2307,6 +2305,46 @@ Prefab:
     - target: {fileID: 4976914907857168, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000018999318
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000004768371
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 1.7487431e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000064373016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.4600008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419146855106670, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15.640001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956336756393714, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000064373016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956336756393714, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15.640001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956336756393714, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.4600008
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 311723099fe004135b2e6fecab34ff6f, type: 2}
@@ -3351,7 +3389,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 558882102}
@@ -5732,7 +5769,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 905735384}
@@ -8809,6 +8845,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -17.46997
       objectReference: {fileID: 0}
+    - target: {fileID: 114706452299985022, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+        type: 2}
+      propertyPath: god
+      value: 
+      objectReference: {fileID: 1634689349}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c518e167b03d43dfb1fa65b5deff62d, type: 2}
   m_IsPrefabParent: 0
@@ -10418,6 +10459,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dc0aab3aa1f6574fa89d0a18579f53a, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1634689349 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1799481084109518, guid: 311723099fe004135b2e6fecab34ff6f,
+    type: 2}
+  m_PrefabInternal: {fileID: 392960186}
 --- !u!1001 &1638884472
 Prefab:
   m_ObjectHideFlags: 0
@@ -10588,7 +10634,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 1651320063}
@@ -10657,7 +10702,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 1658448032}
@@ -11862,7 +11906,6 @@ MonoBehaviour:
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 1856075339}
