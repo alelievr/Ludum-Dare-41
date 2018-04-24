@@ -1303,6 +1303,20 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114706452299985022, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+        type: 2}
+      propertyPath: god
+      value: 
+      objectReference: {fileID: 1992943747}
+    - target: {fileID: 224605520998306678, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.020004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688920137300170, guid: 0c518e167b03d43dfb1fa65b5deff62d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c518e167b03d43dfb1fa65b5deff62d, type: 2}
   m_IsPrefabParent: 0
@@ -7514,11 +7528,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a12e3e95c4824440819e94a0877f974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listFollowerInZone: []
   zoneType: 0
   follower: {fileID: 0}
   followerNeeded: 4
   followerCount: 0
-  spawnDelay: 5
   selectedGO: {fileID: 0}
   posTab:
   - {fileID: 737480795}
@@ -8027,6 +8041,100 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &764583639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1349530757154344, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 764583640}
+  - component: {fileID: 764583643}
+  - component: {fileID: 764583642}
+  - component: {fileID: 764583641}
+  m_Layer: 5
+  m_Name: Text (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &764583640
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224371805843390030, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764583639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0000036039}
+  m_LocalScale: {x: 1.0001274, y: 1.0001272, z: 1.0001274}
+  m_Children: []
+  m_Father: {fileID: 1363689374}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -0.00000003317, y: 71.5}
+  m_SizeDelta: {x: 663.3, y: 113.95}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &764583641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114113647331312488, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764583639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &764583642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114689117206225800, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764583639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: e2f1bae881d9940ce9e00dce2ffb5439, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 47432b52ad74f40028a4c043e074d8e8, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 101
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Press return to load the next level
+--- !u!222 &764583643
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222275508621094662, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764583639}
 --- !u!1001 &795334401
 Prefab:
   m_ObjectHideFlags: 0
@@ -9354,6 +9462,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1363689374 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224457938274770182, guid: 0c518e167b03d43dfb1fa65b5deff62d,
+    type: 2}
+  m_PrefabInternal: {fileID: 231760905}
 --- !u!1001 &1375023964
 Prefab:
   m_ObjectHideFlags: 0
@@ -9709,7 +9822,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Welcone to *game name here *
+  m_text: Welcone to Wana be GodMod / rts / fps
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2b512643eead4dd78b00be3cac833c6, type: 2}
   m_sharedMaterial: {fileID: 21391160148479408, guid: c2b512643eead4dd78b00be3cac833c6,
@@ -9775,13 +9888,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -18.792133, w: 0}
+  m_margin: {x: -7.6558146, y: 0, z: -24.604939, w: 0}
   m_textInfo:
     textComponent: {fileID: 1582519956}
-    characterCount: 28
+    characterCount: 37
     spriteCount: 0
-    spaceCount: 5
-    wordCount: 5
+    spaceCount: 8
+    wordCount: 7
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -11130,6 +11243,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ecab8a7e739642dab1640ae34205fed, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1992943747 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1799481084109518, guid: 311723099fe004135b2e6fecab34ff6f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1461233571}
 --- !u!4 &2012162129 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4530937631607474, guid: 6ecab8a7e739642dab1640ae34205fed,
